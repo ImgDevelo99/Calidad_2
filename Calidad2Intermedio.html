@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Interactiva: Estándares de Calidad de Software</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding-top: 60px; /* Space for fixed header */
+            background-color: #f4f4f4;
+            line-height: 1.6;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #fff;
+            color: #333;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+        }
+        header img {
+            height: 40px;
+            margin-right: 15px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 1.2em;
+            color: #003b64; /* Dark blue */
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px 30px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        h2 {
+            color: #0056b3; /* Medium blue */
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 10px;
+            margin-top: 20px;
+        }
+        h3 {
+            color: #007bff; /* Bright blue */
+            margin-top: 15px;
+        }
+        .step-content {
+            margin-bottom: 30px;
+        }
+        .navigation {
+            text-align: center;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+        button:hover:not(:disabled) {
+            background-color: #0056b3;
+        }
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+        /* Visual Demonstration Styles (Text/CSS based) */
+        .visual-demo {
+            background-color: #e9ecef;
+            border: 1px solid #ced4da;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap; /* Preserve formatting */
+            overflow-x: auto; /* Scroll if content is too wide */
+        }
+        .visual-demo pre {
+            margin: 0;
+            padding: 0;
+        }
+        .box {
+            border: 1px solid #6c757d;
+            padding: 5px;
+            margin: 5px;
+            display: inline-block;
+            background-color: #f8f9fa;
+        }
+        .arrow {
+            display: inline-block;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+
+        /* Exercise Styles */
+        .exercise {
+            background-color: #e9ecef;
+            border: 1px solid #ced4da;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .exercise label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        .exercise input[type="text"],
+        .exercise select {
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            width: calc(100% - 18px); /* Adjust for padding/border */
+        }
+        .exercise button {
+            margin-top: 10px;
+            padding: 8px 15px;
+            font-size: 0.9em;
+        }
+        .feedback {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .feedback.correct {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .feedback.incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+         .feedback.info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="https://i.postimg.cc/mZzx20gW/Logosimbolo-SENA-PRINCIPAL.png" alt="Logo SENA">
+        <h1>Centro de Servicios y Gestión Empresarial</h1>
+    </header>
+
+    <div class="container">
+        <div id="guide-content">
+            <!-- Content will be loaded here by JavaScript -->
+        </div>
+
+        <div class="navigation">
+            <button id="prev-btn">Anterior</button>
+            <span id="step-counter">Paso 1 / X</span>
+            <button id="next-btn">Siguiente</button>
+        </div>
+    </div>
+
+    <script>
+        const content = [
+            // Paso 0: Introducción
+            {
+                title: "Introducción a los Estándares de Calidad de Software",
+                theory: `
+                    <p>Bienvenido/a a esta guía interactiva sobre Estándares de Calidad para el Desarrollo de Software.</p>
+                    <p>La calidad del software no es algo opcional, es fundamental para garantizar que las aplicaciones sean confiables, eficientes, seguras y satisfagan las necesidades del usuario.</p>
+                    <p>Los estándares de calidad proporcionan marcos, directrices y métricas para:</p>
+                    <ul>
+                        <li>Definir y evaluar la calidad del producto final.</li>
+                        <li>Evaluar y mejorar los procesos de desarrollo.</li>
+                        <li>Establecer un lenguaje común entre desarrolladores, clientes y auditores.</li>
+                    </ul>
+                    <p>En esta guía exploraremos tres conjuntos de estándares clave a un nivel intermedio: ISO/IEC 25000 (SQuaRE), ISO/IEC 15504 (SPICE) e IEEE.</p>
+                    <h3>Objetivos de la guía:</h3>
+                    <ul>
+                        <li>Comprender los conceptos principales de cada conjunto de estándares.</li>
+                        <li>Identificar cuándo y por qué se aplican.</li>
+                        <li>Relacionar la teoría con situaciones prácticas.</li>
+                    </ul>
+                `,
+                visual_demo: ``,
+                exercise: null
+            },
+            // Paso 1: ISO/IEC 25000 (SQuaRE) - Introducción
+            {
+                title: "ISO/IEC 25000 (SQuaRE) - Overview",
+                theory: `
+                    <p>ISO/IEC 25000, también conocido como SQuaRE (System and Software Quality Requirements and Evaluation), es una serie de estándares internacionales que tiene como objetivo ayudar a organizar, definir y gestionar la Evaluación de la Calidad de Productos de Software.</p>
+                    <p>Es el sucesor de las normas ISO/IEC 9126 e ISO/IEC 14598.</p>
+                    <p>SQuaRE se divide en varias partes, cada una centrada en diferentes aspectos de la calidad del producto y su evaluación:</p>
+                    <ul>
+                        <li><strong>ISO/IEC 25000:</strong> División de Gestión de la Calidad.</li>
+                        <li><strong>ISO/IEC 25010:</strong> División del Modelo de Calidad.</li>
+                        <li><strong>ISO/IEC 25020:</strong> División de Medición de la Calidad.</li>
+                        <li><strong>ISO/IEC 25030:</strong> División de Requisitos de Calidad.</li>
+                        <li><strong>ISO/IEC 25040:</strong> División de Evaluación de la Calidad.</li>
+                    </ul>
+                    <p>Su enfoque principal es la <strong>calidad del producto de software</strong>, tanto la calidad interna (código, arquitectura) como la calidad externa (comportamiento del sistema) y la calidad en uso (experiencia del usuario en un contexto específico).</p>
+                `,
+                visual_demo: `
+                    <h3>Estructura General de SQuaRE (Representación Simplificada)</h3>
+                    <div class="visual-demo">
+SQuaRE (ISO 25000 Series)
+├── 25000: Gestión de la Calidad (Overview)
+├── 25010: Modelo de Calidad (Características)
+│   └── (Ej: Fiabilidad, Usabilidad, etc.)
+├── 25020: Medición de la Calidad (Métricas)
+│   └── (Ej: Métricas para fiabilidad)
+├── 25030: Requisitos de Calidad (Especificación)
+│   └── (Cómo definir requisitos de calidad)
+└── 25040: Evaluación de la Calidad (Proceso)
+    └── (Cómo evaluar la calidad)
+                    </div>
+                `,
+                exercise: null
+            },
+             // Paso 2: ISO/IEC 25000 - ISO 25010
+            {
+                title: "ISO/IEC 25000 (SQuaRE) - ISO 25010: Modelo de Calidad",
+                theory: `
+                    <p>La norma ISO/IEC 25010:2011 es la parte más conocida de SQuaRE, ya que define el <strong>Modelo de Calidad de Producto de Software</strong>.</p>
+                    <p>Este modelo organiza las características de calidad en un conjunto jerárquico. Define 8 características de alto nivel (o "factores de calidad") y sus sub-características.</p>
+                    <p>Entender estas características es crucial para especificar, diseñar, desarrollar y evaluar la calidad de un producto de software.</p>
+                    <p>Las 8 características principales son:</p>
+                    <ol>
+                        <li><strong>Idoneidad Funcional (Functional Suitability):</strong> Qué tan bien el software provee funciones que satisfacen necesidades.</li>
+                        <li><strong>Eficiencia de Desempeño (Performance Efficiency):</strong> Rendimiento en términos de tiempo, uso de recursos y capacidad.</li>
+                        <li><strong>Compatibilidad (Compatibility):</strong> Habilidad para coexistir e interactuar con otros sistemas.</li>
+                        <li><strong>Usabilidad (Usability):</strong> Facilidad de uso y atractividad para los usuarios.</li>
+                        <li><strong>Fiabilidad (Reliability):</strong> Habilidad para mantener un nivel de rendimiento bajo condiciones dadas por un período.</li>
+                        <li><strong>Seguridad (Security):</strong> Protección contra acceso no autorizado o malicioso.</li>
+                        <li><strong>Mantenibilidad (Maintainability):</strong> Facilidad para ser modificado, adaptado o corregido.</li>
+                        <li><strong>Portabilidad (Portability):</strong> Habilidad para ser transferido de un entorno a otro.</li>
+                    </ol>
+                `,
+                visual_demo: `
+                    <h3>Modelo de Calidad ISO 25010 (Características Principales)</h3>
+                    <div class="visual-demo">
++-------------------------+
+| Modelo Calidad ISO 25010|
++-------------------------+
+        |
+        +---------------------------------+---------------------------------+
+        |                                 |                                 |
++-------------------+               +-------------------+               +-------------------+
+| 1. Idoneidad Func.|               | 2. Efic. Desemp.  |               | 3. Compatibilidad |
++-------------------+               +-------------------+               +-------------------+
+        |                                 |                                 |
+        +---------------------------------+---------------------------------+
+        |                                 |                                 |
++-------------------+               +-------------------+               +-------------------+
+| 4. Usabilidad     |               | 5. Fiabilidad     |               | 6. Seguridad      |
++-------------------+               +-------------------+               +-------------------+
+        |                                 |                                 |
+        +---------------------------------+---------------------------------+
+        |                                 |
++-------------------+               +-------------------+
+| 7. Mantenibilidad |               | 8. Portabilidad   |
++-------------------+               +-------------------+
+
+(Cada caja representa una Característica de Calidad)
+                    </div>
+                `,
+                exercise: {
+                    type: 'multiple_choice',
+                    question: "¿Según ISO 25010, qué característica se refiere a la habilidad del software para mantener un nivel de rendimiento bajo condiciones dadas por un período?",
+                    options: [
+                        { text: "Usabilidad", correct: false },
+                        { text: "Fiabilidad", correct: true },
+                        { text: "Eficiencia de Desempeño", correct: false },
+                        { text: "Mantenibilidad", correct: false }
+                    ],
+                    feedback: {
+                        correct: "¡Correcto! La Fiabilidad se centra en la capacidad del software para operar sin fallos durante un tiempo o número de operaciones determinado.",
+                        incorrect: "Incorrecto. La Usabilidad es sobre la facilidad de uso; la Eficiencia de Desempeño es sobre recursos y tiempo; la Mantenibilidad es sobre la facilidad de modificación. La respuesta correcta es Fiabilidad."
+                    }
+                }
+            },
+             // Paso 3: ISO/IEC 25000 - Sub-características
+            {
+                title: "ISO/IEC 25000 (SQuaRE) - Sub-características",
+                theory: `
+                    <p>Cada una de las 8 características principales definidas en ISO 25010 se desglosa en varias sub-características, proporcionando un detalle más fino para la especificación y evaluación.</p>
+                    <p>Por ejemplo, la <strong>Fiabilidad</strong> se desglosa en:</p>
+                    <ul>
+                        <li><strong>Madurez:</strong> Frecuencia de fallos.</li>
+                        <li><strong>Disponibilidad:</strong> Porcentaje de tiempo que el sistema está operativo.</li>
+                        <li><strong>Tolerancia a Fallos:</strong> Habilidad para operar a pesar de la presencia de fallos.</li>
+                        <li><strong>Capacidad de Recuperación:</strong> Habilidad para restablecer el estado operativo y recuperar datos en caso de fallo.</li>
+                    </ul>
+                    <p>La <strong>Mantenibilidad</strong> incluye sub-características como Modularidad, Reusabilidad, Modificabilidad, Capacidad para ser probado y Capacidad para ser analizado.</p>
+                    <p>Estas sub-características son las que a menudo se miden directamente para evaluar la calidad del software (usando métricas definidas en ISO 25020).</p>
+                `,
+                visual_demo: `
+                    <h3>Ejemplo de Desglose (ISO 25010)</h3>
+                    <div class="visual-demo">
++-----------------------+
+| 5. Fiabilidad         |
+| (Reliability)         |
++-----------------------+
+        |
+        +-----------------------+
+        |                       |
++-------------------+   +-------------------+
+| 5.1 Madurez       |   | 5.2 Disponibilidad|
++-------------------+   +-------------------+
+        |                       |
+        +-----------------------+
+        |                       |
++-------------------+   +-------------------+
+| 5.3 Tolerancia a F.|   | 5.4 Cap. Recup.   |
++-------------------+   +-------------------+
+
+(Una Característica y sus Sub-características)
+                    </div>
+                `,
+                exercise: {
+                     type: 'short_answer',
+                     question: "Si un equipo está preocupado por la facilidad con la que pueden corregir errores y añadir nuevas funcionalidades a un sistema existente, ¿qué característica principal de ISO 25010 les interesaría principalmente?",
+                     correct_answer: "Mantenibilidad",
+                     feedback: {
+                        correct: "¡Correcto! La Mantenibilidad se refiere directamente a la facilidad con la que el software puede ser modificado y gestionado a lo largo de su vida útil.",
+                        incorrect: "Incorrecto. Revisa las 8 características principales. La facilidad de modificación y corrección de errores está cubierta por la Mantenibilidad."
+                    }
+                }
+            },
+            // Paso 4: ISO/IEC 15504 (SPICE) - Introducción
+            {
+                title: "ISO/IEC 15504 (SPICE) - Overview",
+                theory: `
+                    <p>ISO/IEC 15504, también conocido como SPICE (Software Process Improvement and Capability Determination), se centra en la <strong>evaluación de los procesos de software</strong>, no directamente en la calidad del producto final.</p>
+                    <p>Su propósito es doble:</p>
+                    <ol>
+                        <li><strong>Mejora del Proceso:</strong> Identificar las fortalezas y debilidades de los procesos de una organización para planificar mejoras.</li>
+                        <li><strong>Determinación de la Capacidad:</strong> Evaluar la capacidad de los procesos de una organización para cumplir requisitos específicos (por ejemplo, al seleccionar un proveedor).</li>
+                    </ol>
+                    <p>SPICE proporciona un modelo de referencia de procesos y un modelo de medición de la capacidad. La evaluación se basa en atributos de proceso genéricos aplicados a procesos base específicos.</p>
+                    <p>Mientras SQuaRE pregunta "¿Es el software de buena calidad?", SPICE pregunta "¿Son los procesos que crearon el software lo suficientemente buenos?".</p>
+                `,
+                visual_demo: `
+                    <h3>Enfoque de SPICE vs. SQuaRE</h3>
+                    <div class="visual-demo">
++-----------------------+     +-----------------------+
+| SQuaRE (ISO 25000)    |     | SPICE (ISO 15504)     |
++-----------------------+     +-----------------------+
+|   Enfoque Principal   |     |   Enfoque Principal   |
+| --------------------- |     | --------------------- |
+| Calidad del PRODUCTO  |     | Calidad del PROCESO   |
+| (Fiabilidad, Usab...) |     | (Cómo se desarrolla)  |
+|                       |     |                       |
+|   Uso Típico          |     |   Uso Típico          |
+| --------------------- |     | --------------------- |
+| Especificar, Evaluar  |     | Mejorar Procesos,     |
+| la calidad del SW     |     | Evaluar Proveedores   |
++-----------------------+     +-----------------------+
+                    </div>
+                `,
+                exercise: null
+            },
+            // Paso 5: ISO/IEC 15504 (SPICE) - Niveles de Capacidad
+            {
+                title: "ISO/IEC 15504 (SPICE) - Niveles de Capacidad del Proceso",
+                theory: `
+                    <p>Un concepto central en SPICE es la evaluación de la capacidad de un proceso en una escala de 6 niveles:</p>
+                    <ol>
+                        <li><strong>Nivel 0 - Incompleto:</strong> El proceso no se implementa o falla en alcanzar su propósito.</li>
+                        <li><strong>Nivel 1 - Realizado:</strong> El proceso se implementa y logra su propósito, pero no de forma consistente.</li>
+                        <li><strong>Nivel 2 - Gestionado:</strong> El proceso se realiza de forma planificada, monitorizada y ajustada, produciendo productos de trabajo definidos.</li>
+                        <li><strong>Nivel 3 - Establecido:</strong> El proceso se implementa utilizando un proceso definido y documentado, que es entendido y utilizado por los participantes. Hay una descripción del proceso estándar.</li>
+                        <li><strong>Nivel 4 - Predecible:</strong> El proceso se realiza dentro de límites cuantitativos establecidos, utilizando mediciones y análisis para controlar y mejorar el rendimiento.</li>
+                        <li><strong>Nivel 5 - Optimizado:</strong> El proceso se mejora continuamente basándose en una comprensión cuantitativa de las causas comunes de variación.</li>
+                    </ol>
+                    <p>Evaluar un proceso implica verificar si cumple con los atributos genéricos asociados a cada nivel de capacidad (por ejemplo, para Nivel 2 se evalúa la Gestión del Rendimiento y la Gestión de los Productos de Trabajo).</p>
+                `,
+                visual_demo: `
+                    <h3>Escala de Niveles de Capacidad SPICE</h3>
+                    <div class="visual-demo">
+Nivel 0: Incompleto
+   ↓
+Nivel 1: Realizado (Hace lo básico, sin consistencia)
+   ↓
+Nivel 2: Gestionado (Planificado, Monitorizado)
+   ↓
+Nivel 3: Establecido (Proceso Definido, Documentado)
+   ↓
+Nivel 4: Predecible (Medido Cuantitativamente, Controlado)
+   ↓
+Nivel 5: Optimizado (Mejora Continua Cuantitativa)
+                    </div>
+                `,
+                exercise: {
+                    type: 'matching',
+                    question: "Relaciona cada descripción con el Nivel de Capacidad SPICE correcto:",
+                    options: [
+                        { id: 'desc1', text: "El proceso se realiza de forma planificada y monitorizada." },
+                        { id: 'desc2', text: "El proceso ni siquiera se implementa o falla en su propósito." },
+                        { id: 'desc3', text: "El proceso utiliza un proceso estándar documentado." }
+                    ],
+                    matches: [
+                        { value: "Nivel 2 - Gestionado" },
+                        { value: "Nivel 0 - Incompleto" },
+                        { value: "Nivel 3 - Establecido" }
+                    ],
+                    correct_mapping: {
+                        'desc1': 'Nivel 2 - Gestionado',
+                        'desc2': 'Nivel 0 - Incompleto',
+                        'desc3': 'Nivel 3 - Establecido'
+                    },
+                    feedback: {
+                        correct: "¡Muy bien! Has relacionado correctamente las descripciones con los niveles SPICE.",
+                        incorrect: "Incorrecto. Revisa las descripciones de cada nivel. Pista: El nivel 0 es el punto de partida negativo, el 2 implica gestión básica y el 3 implica un proceso definido formalmente."
+                    }
+                }
+            },
+             // Paso 6: IEEE Standards - Introducción
+             {
+                title: "Estándares IEEE para el Desarrollo de Software - Overview",
+                theory: `
+                    <p>El Institute of Electrical and Electronics Engineers (IEEE) publica una amplia gama de estándares en diversas áreas tecnológicas, incluyendo el desarrollo de software.</p>
+                    <p>Los estándares IEEE para software suelen centrarse en <strong>procesos específicos, formatos de documentos, métricas y terminología</strong>.</p>
+                    <p>A diferencia de ISO 25000 (producto) o ISO 15504 (proceso general), los estándares IEEE tienden a ser más prescriptivos sobre <em>cómo</em> realizar una actividad particular o <em>qué debe contener</em> un artefacto específico.</p>
+                    <p>Son muy útiles para estandarizar prácticas dentro de una organización o en proyectos con múltiples participantes.</p>
+                    <p>Algunos ejemplos conocidos (aunque hay cientos):</p>
+                    <ul>
+                        <li><strong>IEEE 829:</strong> Estándar para la Documentación de Pruebas de Software.</li>
+                        <li><strong>IEEE 1016:</strong> Estándar Recomendado para Descripciones de Diseño de Software.</li>
+                        <li><strong>IEEE 1028:</strong> Estándar para Revisiones de Software e Inspecciones.</li>
+                        <li><strong>IEEE 1044:</strong> Clasificación de Anomalías de Software.</li>
+                    </ul>
+                `,
+                visual_demo: `
+                    <h3>Enfoque de Estándares IEEE (Ejemplos)</h3>
+                    <div class="visual-demo">
+IEEE Software Standards
++-----------------------------------+
+| Enfoque Principal                 |
+| --------------------------------- |
+| Procesos, Documentos, Métricas,   |
+| Terminología ESPECÍFICA           |
++-----------------------------------+
+        |
+        +---------------------------------+---------------------------------+
+        |                                 |                                 |
++-------------------+               +-------------------+               +-------------------+
+| IEEE 829          |               | IEEE 1016         |               | IEEE 1028         |
+| (Doc. Pruebas)    |               | (Doc. Diseño)     |               | (Revisiones)      |
++-------------------+               +-------------------+               +-------------------+
+                    </div>
+                `,
+                exercise: null
+            },
+             // Paso 7: IEEE Standards - Aplicación
+            {
+                title: "Estándares IEEE para el Desarrollo de Software - Aplicación",
+                theory: `
+                    <p>La aplicación de estándares IEEE ayuda a mejorar la consistencia, la comunicación y la calidad de artefactos específicos del proyecto de software.</p>
+                    <ul>
+                        <li><strong>IEEE 829 (Documentación de Pruebas):</strong> Define plantillas y contenidos para documentos como Plan de Pruebas, Especificación de Casos de Prueba, Informe de Resultados de Pruebas, etc. Usarlo asegura que todos los documentos de prueba de un proyecto sigan una estructura y contengan información clave.</li>
+                        <li><strong>IEEE 1016 (Descripción de Diseño):</strong> Proporciona una estructura para documentar el diseño de software, incluyendo la arquitectura, el diseño detallado de componentes, las interfaces, etc. Ayuda a asegurar que el diseño esté bien pensado y comunicado.</li>
+                        <li><strong>IEEE 1028 (Revisiones e Inspecciones):</strong> Define procesos formales para llevar a cabo diferentes tipos de revisiones de software (revisiones de gestión, técnicas, inspecciones, recorridos, auditorías), especificando roles, entradas, salidas y procedimientos.</li>
+                    </ul>
+                    <p>Seleccionar y aplicar los estándares IEEE relevantes depende de las necesidades específicas del proyecto y la organización.</p>
+                `,
+                visual_demo: `
+                    <h3>Uso de IEEE 829 (Ejemplo)</h3>
+                    <div class="visual-demo">
+Proceso de Pruebas
+      |
+      V
+[Definir Plan de Pruebas (IEEE 829)]
+      |
+      V
+[Diseñar Casos de Prueba (IEEE 829)]
+      |
+      V
+[Ejecutar Pruebas]
+      |
+      V
+[Reportar Resultados (IEEE 829)]
+                    </div>
+                `,
+                exercise: {
+                     type: 'matching',
+                     question: "Relaciona el estándar IEEE con la actividad de desarrollo que estandariza:",
+                     options: [
+                         { id: 'ieee_q1', text: "Documentación del Plan y Casos de Prueba" },
+                         { id: 'ieee_q2', text: "Proceso para realizar Inspecciones de Código" },
+                         { id: 'ieee_q3', text: "Formato para documentar la Arquitectura del Software" }
+                     ],
+                     matches: [
+                         { value: "IEEE 829" },
+                         { value: "IEEE 1028" },
+                         { value: "IEEE 1016" }
+                     ],
+                     correct_mapping: {
+                         'ieee_q1': 'IEEE 829',
+                         'ieee_q2': 'IEEE 1028',
+                         'ieee_q3': 'IEEE 1016'
+                     },
+                     feedback: {
+                         correct: "¡Excelente! Has asociado correctamente los estándares IEEE con sus áreas de aplicación.",
+                         incorrect: "Incorrecto. Revisa qué aspecto específico del desarrollo de software cubre cada uno de los estándares mencionados (829, 1016, 1028)."
+                     }
+                }
+            },
+             // Paso 8: Conclusión
+            {
+                title: "Conclusión y Resumen",
+                theory: `
+                    <p>Hemos explorado tres conjuntos importantes de estándares relacionados con la calidad del software:</p>
+                    <ul>
+                        <li><strong>ISO/IEC 25000 (SQuaRE):</strong> Se enfoca en la <strong>Calidad del PRODUCTO</strong> de software (qué tan bueno es el software terminado) y sus características (funcionalidad, fiabilidad, usabilidad, etc.).</li>
+                        <li><strong>ISO/IEC 15504 (SPICE):</strong> Se enfoca en la <strong>Calidad del PROCESO</strong> de desarrollo (qué tan bien se desarrollan las cosas) y la capacidad de los procesos (niveles 0-5).</li>
+                        <li><strong>Estándares IEEE:</strong> Proporcionan <strong>directrices específicas</strong> para procesos, documentos y métricas particulares (ej: documentación de pruebas, proceso de revisiones).</li>
+                    </ul>
+                    <p>Estos estándares no son mutuamente excluyentes; de hecho, se complementan. Una organización con procesos maduros (SPICE) es más propensa a producir software de alta calidad (SQuaRE), y los estándares IEEE pueden ser utilizados como herramientas para implementar o evaluar procesos específicos.</p>
+                    <p>La aplicación de estos estándares, adaptada al contexto de cada proyecto y organización, es un pilar fundamental para el desarrollo de software profesional y de alta calidad.</p>
+                    <p>¡Esperamos que esta guía te haya proporcionado una base sólida sobre estos importantes estándares!</p>
+                `,
+                visual_demo: `
+                    <h3>Relación entre los Estándares</h3>
+                    <div class="visual-demo">
++-----------------+       +-----------------+       +-----------------+
+| ISO 15504       | ----> | PROCESOS        | ----> | PRODUCTO        |
+| (Evalúa Proceso)|       | (Estándares IEEE|       | (ISO 25000      |
++-----------------+       | pueden ayudar a |       | evalúa Producto)|
+                          | definir procesos)|       |                 |
+                          +-----------------+       +-----------------+
+
+Un buen proceso (SPICE) con actividades estandarizadas (IEEE)
+tiende a producir un producto de calidad (SQuaRE).
+                    </div>
+                `,
+                exercise: null
+            }
+        ];
+
+        let currentStep = 0;
+        const guideContentDiv = document.getElementById('guide-content');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const stepCounterSpan = document.getElementById('step-counter');
+
+        function showStep(stepIndex) {
+            if (stepIndex < 0 || stepIndex >= content.length) {
+                return; // Stay within bounds
+            }
+
+            currentStep = stepIndex;
+            const stepData = content[currentStep];
+            guideContentDiv.innerHTML = `
+                <h2>${stepData.title}</h2>
+                <div class="step-content">${stepData.theory}</div>
+                ${stepData.visual_demo ? `<div class="visual-demo">${stepData.visual_demo}</div>` : ''}
+                ${stepData.exercise ? generateExerciseHTML(stepData.exercise, currentStep) : ''}
+            `;
+
+            updateNavigation();
+            attachExerciseListeners(stepData.exercise, currentStep);
+        }
+
+        function updateNavigation() {
+            prevBtn.disabled = currentStep === 0;
+            nextBtn.disabled = currentStep === content.length - 1;
+            stepCounterSpan.textContent = `Paso ${currentStep + 1} / ${content.length}`;
+        }
+
+        function nextStep() {
+            showStep(currentStep + 1);
+        }
+
+        function prevStep() {
+            showStep(currentStep - 1);
+        }
+
+        function generateExerciseHTML(exercise, stepIndex) {
+            let exerciseHTML = `<div class="exercise" id="exercise-${stepIndex}"><h3>Ejercicio</h3><p>${exercise.question}</p>`;
+            const feedbackId = `feedback-${stepIndex}`;
+
+            if (exercise.type === 'multiple_choice') {
+                exercise.options.forEach((option, index) => {
+                    exerciseHTML += `
+                        <div>
+                            <input type="radio" id="step${stepIndex}-option${index}" name="exercise-${stepIndex}" value="${index}">
+                            <label for="step${stepIndex}-option${index}">${option.text}</label>
+                        </div>
+                    `;
+                });
+                exerciseHTML += `<button class="check-btn" data-step="${stepIndex}">Verificar Respuesta</button>`;
+            } else if (exercise.type === 'short_answer') {
+                 exerciseHTML += `<input type="text" id="step${stepIndex}-answer">`;
+                 exerciseHTML += `<button class="check-btn" data-step="${stepIndex}">Verificar Respuesta</button>`;
+            } else if (exercise.type === 'matching') {
+                exerciseHTML += `<div class="matching-exercise">`;
+                exercise.options.forEach(option => {
+                    exerciseHTML += `
+                        <div class="matching-item">
+                            <label for="match-${option.id}">${option.text}</label>
+                            <select id="match-${option.id}">
+                                <option value="">-- Seleccionar --</option>
+                                ${exercise.matches.map(match => `<option value="${match.value}">${match.value}</option>`).join('')}
+                            </select>
+                        </div>
+                    `;
+                });
+                exerciseHTML += `</div>`; // .matching-exercise
+                exerciseHTML += `<button class="check-btn" data-step="${stepIndex}">Verificar Respuesta</button>`;
+            }
+
+
+            exerciseHTML += `<div id="${feedbackId}" class="feedback" style="display: none;"></div></div>`; // .exercise, .feedback
+            return exerciseHTML;
+        }
+
+        function attachExerciseListeners(exercise, stepIndex) {
+            if (!exercise) return;
+
+            const checkBtn = document.querySelector(`#exercise-${stepIndex} .check-btn`);
+            const feedbackDiv = document.getElementById(`feedback-${stepIndex}`);
+
+            if (checkBtn) {
+                 checkBtn.addEventListener('click', () => {
+                    let isCorrect = false;
+                    let feedbackText = '';
+
+                    if (exercise.type === 'multiple_choice') {
+                        const selectedOption = document.querySelector(`input[name="exercise-${stepIndex}"]:checked`);
+                        if (selectedOption) {
+                            const selectedIndex = parseInt(selectedOption.value);
+                            isCorrect = exercise.options[selectedIndex].correct;
+                            feedbackText = isCorrect ? exercise.feedback.correct : exercise.feedback.incorrect;
+                        } else {
+                             feedbackText = "Por favor, selecciona una opción.";
+                             feedbackDiv.className = 'feedback info';
+                             feedbackDiv.style.display = 'block';
+                             feedbackDiv.textContent = feedbackText;
+                             return; // Exit if no option selected
+                        }
+                    } else if (exercise.type === 'short_answer') {
+                        const answerInput = document.getElementById(`step${stepIndex}-answer`);
+                        const userAnswer = answerInput.value.trim().toLowerCase();
+                        const correctAnswer = exercise.correct_answer.trim().toLowerCase();
+                        isCorrect = userAnswer === correctAnswer;
+                        feedbackText = isCorrect ? exercise.feedback.correct : exercise.feedback.incorrect;
+                    } else if (exercise.type === 'matching') {
+                         let allCorrect = true;
+                         let selectedCount = 0;
+                         for (const option of exercise.options) {
+                             const selectElement = document.getElementById(`match-${option.id}`);
+                             if (selectElement && selectElement.value) {
+                                selectedCount++;
+                                 if (selectElement.value !== exercise.correct_mapping[option.id]) {
+                                     allCorrect = false;
+                                     break; // Found an incorrect match
+                                 }
+                             }
+                         }
+
+                         if (selectedCount < exercise.options.length) {
+                            feedbackText = "Por favor, selecciona una opción para cada descripción.";
+                             feedbackDiv.className = 'feedback info';
+                             feedbackDiv.style.display = 'block';
+                             feedbackDiv.textContent = feedbackText;
+                             return; // Exit if not all matched
+                         }
+
+
+                         isCorrect = allCorrect;
+                         feedbackText = isCorrect ? exercise.feedback.correct : exercise.feedback.incorrect;
+                    }
+
+                    // Display feedback
+                    feedbackDiv.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+                    feedbackDiv.style.display = 'block';
+                    feedbackDiv.textContent = feedbackText;
+                });
+            }
+        }
+
+
+        // Initial load
+        prevBtn.addEventListener('click', prevStep);
+        nextBtn.addEventListener('click', nextStep);
+
+        showStep(0); // Start with the first step
+
+    </script>
+
+</body>
+</html>

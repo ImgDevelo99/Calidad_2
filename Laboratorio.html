@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio: Estándares de Calidad de Software</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid #0097A9;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        header img {
+            height: 50px;
+            margin-right: 15px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8em;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        section {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        h2, h3 {
+            color: #005F73;
+            border-bottom: 2px solid #0097A9;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+
+        .exercise, .simulation {
+            background-color: #e9e9e9;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            border: 1px dashed #ccc;
+        }
+
+        .question h4 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #003F5C;
+        }
+
+        .options label {
+            display: block;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+
+        .options input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        .check-button {
+            display: inline-block;
+            background-color: #0077B6;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+
+        .check-button:hover {
+            background-color: #023E8A;
+        }
+
+        .feedback {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            display: none; /* Initially hidden */
+        }
+
+        .feedback.correct {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .feedback.incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* Specific styles for interactive elements */
+        .scenario-description {
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        textarea {
+            width: calc(100% - 22px); /* Adjust for padding/border */
+            min-height: 80px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="https://i.postimg.cc/mZzx20gW/Logosimbolo-SENA-PRINCIPAL.png" alt="Logo SENA">
+        <h1>Centro de Servicios y Gestión Empresarial</h1>
+    </header>
+
+    <div class="container">
+
+        <section id="intro">
+            <h2>Introducción a los Estándares de Calidad de Software</h2>
+            <p>Este laboratorio interactivo te permitirá explorar los estándares clave utilizados para asegurar y evaluar la calidad del software. Nos enfocaremos en ISO/IEC 25000 (SQuaRE), ISO/IEC 15504 (SPICE) y estándares relevantes de IEEE, a un nivel intermedio.</p>
+            <p>La calidad del software no es solo que funcione, sino que cumpla con una serie de atributos (funcionalidad, fiabilidad, usabilidad, etc.) y que los procesos utilizados para crearlo sean adecuados y predecibles. Estos estándares proporcionan marcos y modelos para lograrlo.</p>
+        </section>
+
+        <section id="iso25000">
+            <h2>ISO/IEC 25000 (SQuaRE)</h2>
+            <p>ISO/IEC 25000 (SQuaRE - System and Software Quality Requirements and Evaluation) es una familia de normas que establece un modelo de calidad del producto software, definiendo características y subcaracterísticas de calidad, y proporciona guías para la evaluación.</p>
+            <p>Las principales características de calidad del modelo son:</p>
+            <ul>
+                <li><strong>Idoneidad Funcional:</strong> Completitud, Correctitud, Pertinencia.</li>
+                <li><strong>Eficiencia de Desempeño:</strong> Comportamiento temporal, Utilización de recursos, Capacidad.</li>
+                <li><strong>Compatibilidad:</strong> Coexistencia, Interoperabilidad.</li>
+                <li><strong>Usabilidad:</strong> Reconocimiento de la idoneidad, Aprendizaje, Operabilidad, Protección frente a errores de usuario, Estética, Accesibilidad.</li>
+                <li><strong>Fiabilidad:</strong> Madurez, Disponibilidad, Tolerancia a fallos, Capacidad de recuperación.</li>
+                <li><strong>Seguridad:</strong> Confidencialidad, Integridad, No repudio, Responsabilidad, Autenticidad.</li>
+                <li><strong>Mantenibilidad:</strong> Modularidad, Reusabilidad, Analizabilidad, Modificabilidad, Capacidad para ser probado.</li>
+                <li><strong>Portabilidad:</strong> Adaptabilidad, Instalabilidad, Coexistencia, Capacidad de reemplazo.</li>
+            </ul>
+
+            <h3>Ejercicio 1: Identificando Características SQuaRE</h3>
+            <div class="exercise" id="exercise1">
+                <div class="question" id="q1-1">
+                    <h4>Pregunta 1:</h4>
+                    <p>Un equipo de desarrollo recibe quejas frecuentes de usuarios que no pueden encontrar funcionalidades básicas en la interfaz. ¿Qué característica de calidad de SQuaRE está más afectada?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q1-1" value="a"> Fiabilidad</label><br>
+                        <label><input type="radio" name="q1-1" value="b"> Eficiencia de Desempeño</label><br>
+                        <label><input type="radio" name="q1-1" value="c"> Usabilidad</label><br>
+                        <label><input type="radio" name="q1-1" value="d"> Seguridad</label>
+                    </div>
+                    <button class="check-button" onclick="checkAnswer('q1-1', 'c')">Verificar</button>
+                    <div class="feedback" id="feedback-q1-1"></div>
+                </div>
+
+                 <div class="question" id="q1-2">
+                    <h4>Pregunta 2:</h4>
+                    <p>Después de una actualización del sistema operativo, el software ya no se instala correctamente en algunas máquinas. ¿Qué característica de SQuaRE está afectada?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q1-2" value="a"> Mantenibilidad</label><br>
+                        <label><input type="radio" name="q1-2" value="b"> Portabilidad</label><br>
+                        <label><input type="radio" name="q1-2" value="c"> Idoneidad Funcional</label><br>
+                        <label><input type="radio" name="q1-2" value="d"> Compatibilidad</label>
+                    </div>
+                    <button class="check-button" onclick="checkAnswer('q1-2', 'b')">Verificar</button>
+                    <div class="feedback" id="feedback-q1-2"></div>
+                </div>
+            </div>
+
+             <h3>Simulación 1: Escenario de Evaluación SQuaRE</h3>
+             <div class="simulation" id="simulation1">
+                 <h4>Escenario:</h4>
+                 <p class="scenario-description">Estás evaluando un sistema de gestión de inventario. Descubres que, aunque el sistema registra correctamente las entradas y salidas de productos (cumple su función), el tiempo de respuesta al generar informes grandes es excesivamente lento, tardando varios minutos.</p>
+                 <div class="question" id="sim1-1">
+                     <h4>Pregunta:</h4>
+                     <p>Según ISO/IEC 25000, ¿en cuál de las siguientes características de calidad el sistema presenta una deficiencia significativa en este escenario?</p>
+                     <div class="options">
+                         <label><input type="radio" name="sim1-1" value="a"> Fiabilidad</label><br>
+                         <label><input type="radio" name="sim1-1" value="b"> Idoneidad Funcional</label><br>
+                         <label><input type="radio" name="sim1-1" value="c"> Eficiencia de Desempeño</label><br>
+                         <label><input type="radio" name="sim1-1" value="d"> Mantenibilidad</label>
+                     </div>
+                     <button class="check-button" onclick="checkAnswer('sim1-1', 'c')">Verificar</button>
+                     <div class="feedback" id="feedback-sim1-1"></div>
+                 </div>
+             </div>
+
+        </section>
+
+        <section id="iso15504">
+            <h2>ISO/IEC 15504 (SPICE)</h2>
+            <p>ISO/IEC 15504 (ahora parte de la serie ISO 330xx, pero comúnmente conocida como SPICE - Software Process Improvement and Capability Determination) es un marco para la evaluación de procesos de desarrollo de software. No evalúa el *producto* software directamente, sino los *procesos* utilizados para crearlo.</p>
+            <p>SPICE define un modelo de referencia de procesos (PRM) y un modelo de evaluación de procesos (PAM). La evaluación determina el nivel de capacidad de un proceso utilizando una escala de 6 niveles:</p>
+            <ul>
+                <li><strong>Nivel 0: Incompleto:</strong> El proceso no se realiza o no alcanza su objetivo.</li>
+                <li><strong>Nivel 1: Realizado (Performed):</strong> El proceso se realiza y alcanza su objetivo.</li>
+                <li><strong>Nivel 2: Gestionado (Managed):</strong> El proceso se realiza, se planifica, monitoriza y ajusta; los productos de trabajo se establecen y controlan.</li>
+                <li><strong>Nivel 3: Establecido (Established):</strong> El proceso se realiza utilizando un proceso definido, adaptado de un conjunto de procesos estándar de la organización; se recopilan datos para análisis y mejora.</li>
+                <li><strong>Nivel 4: Predecible (Predictable):</strong> El proceso opera dentro de límites predecibles para alcanzar los objetivos del proceso; se utilizan mediciones cuantitativas.</li>
+                <li><strong>Nivel 5: Optimizado (Optimizing):</strong> Se mejora continuamente el desempeño del proceso basándose en la comprensión cuantitativa de las variaciones y la causalidad.</li>
+            </ul>
+
+            <h3>Ejercicio 2: Niveles de Capacidad SPICE</h3>
+            <div class="exercise" id="exercise2">
+                 <div class="question" id="q2-1">
+                    <h4>Pregunta 3:</h4>
+                    <p>Un equipo de desarrollo entrega software funcional, pero no tiene procedimientos documentados, no sigue planes de proyecto formales ni monitoriza el progreso de manera estructurada. ¿Qué nivel de capacidad según SPICE describe mejor este proceso?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q2-1" value="a"> Nivel 0: Incompleto</label><br>
+                        <label><input type="radio" name="q2-1" value="b"> Nivel 1: Realizado</label><br>
+                        <label><input type="radio" name="q2-1" value="c"> Nivel 2: Gestionado</label><br>
+                        <label><input type="radio" name="q2-1" value="d"> Nivel 3: Establecido</label>
+                    </div>
+                    <button class="check-button" onclick="checkAnswer('q2-1', 'b')">Verificar</button>
+                    <div class="feedback" id="feedback-q2-1"></div>
+                </div>
+
+                 <div class="question" id="q2-2">
+                    <h4>Pregunta 4:</h4>
+                    <p>En una organización, los procesos de prueba se definen, documentan y son seguidos consistentemente por todos los equipos. Hay métricas básicas sobre defectos encontrados, pero la predicción cuantitativa del número de defectos futuros aún no es posible. ¿Qué nivel de capacidad según SPICE probablemente han alcanzado?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q2-2" value="a"> Nivel 2: Gestionado</label><br>
+                        <label><input type="radio" name="q2-2" value="b"> Nivel 3: Establecido</label><br>
+                        <label><input type="radio" name="q2-2" value="c"> Nivel 4: Predecible</label><br>
+                        <label><input type="radio" name="q2-2" value="d"> Nivel 5: Optimizado</label>
+                    </div>
+                    <button class="check-button" onclick="checkAnswer('q2-2', 'b')">Verificar</button>
+                    <div class="feedback" id="feedback-q2-2"></div>
+                </div>
+            </div>
+
+            <h3>Simulación 2: Aplicando SPICE en un Proceso</h3>
+            <div class="simulation" id="simulation2">
+                 <h4>Escenario:</h4>
+                 <p class="scenario-description">Eres un asesor de calidad y evalúas el proceso de gestión de requisitos de un proyecto. Observas que los requisitos se recopilan, se documentan informalmente en hojas de cálculo y se revisan verbalmente con el cliente. No hay un procedimiento estándar para la gestión de cambios y la trazabilidad es difícil.</p>
+                 <div class="question" id="sim2-1">
+                     <h4>Pregunta:</h4>
+                     <p>Basándote en la descripción, ¿cuál es el nivel de capacidad máximo que probablemente podrías asignar al proceso de gestión de requisitos según el marco SPICE?</p>
+                     <div class="options">
+                         <label><input type="radio" name="sim2-1" value="a"> Nivel 0: Incompleto</label><br>
+                         <label><input type="radio" name="sim2-1" value="b"> Nivel 1: Realizado</label><br>
+                         <label><input type="radio" name="sim2-1" value="c"> Nivel 2: Gestionado</label><br>
+                         <label><input type="radio" name="sim2-1" value="d"> Nivel 3: Establecido</label>
+                     </div>
+                     <button class="check-button" onclick="checkAnswer('sim2-1', 'b')">Verificar</button>
+                     <div class="feedback" id="feedback-sim2-1"></div>
+                 </div>
+            </div>
+
+        </section>
+
+         <section id="ieee">
+            <h2>Estándares IEEE</h2>
+            <p>El Instituto de Ingenieros Eléctricos y Electrónicos (IEEE) publica una amplia gama de estándares para ingeniería de software. A diferencia de ISO 25000 que define un modelo de calidad del producto o ISO 15504 que define un marco para la evaluación de procesos, los estándares IEEE a menudo proporcionan guías detalladas y formatos para artefactos específicos del ciclo de vida del software.</p>
+            <p>Ejemplos comunes incluyen:</p>
+            <ul>
+                <li><strong>IEEE 829:</strong> Estándar para la documentación de pruebas de software (planes de prueba, casos de prueba, informes, etc.).</li>
+                <li><strong>IEEE 1008:</strong> Estándar para pruebas unitarias.</li>
+                <li><strong>IEEE 1016:</strong> Estándar para descripción de diseño de software.</li>
+                <li><strong>IEEE 1028:</strong> Estándar para revisiones y auditorías de software.</li>
+                <li><strong>IEEE 1062:</strong> Estándar para la mejora de la calidad del software.</li>
+            </ul>
+             <p>Son muy prácticos y específicos, a menudo utilizados como referencia para definir procedimientos y plantillas dentro de una organización.</p>
+
+             <h3>Ejercicio 3: Aplicando Estándares IEEE</h3>
+             <div class="exercise" id="exercise3">
+                  <div class="question" id="q3-1">
+                     <h4>Pregunta 5:</h4>
+                     <p>Tu equipo necesita crear documentación formal y estandarizada para el proceso de pruebas. Quieren definir cómo serán el Plan de Pruebas, la Especificación de Casos de Prueba y el Informe de Resultados. ¿Cuál estándar IEEE sería la referencia más útil?</p>
+                     <div class="options">
+                         <label><input type="radio" name="q3-1" value="a"> IEEE 1008</label><br>
+                         <label><input type="radio" name="q3-1" value="b"> IEEE 1028</label><br>
+                         <label><input type="radio" name="q3-1" value="c"> IEEE 829</label><br>
+                         <label><input type="radio" name="q3-1" value="d"> IEEE 1016</label>
+                     </div>
+                     <button class="check-button" onclick="checkAnswer('q3-1', 'c')">Verificar</button>
+                     <div class="feedback" id="feedback-q3-1"></div>
+                 </div>
+
+                  <div class="question" id="q3-2">
+                     <h4>Pregunta 6:</h4>
+                     <p>Un proyecto decide implementar revisiones formales de código y documentos de diseño como parte de su proceso de calidad. ¿Qué estándar IEEE proporciona pautas sobre cómo realizar estas revisiones y auditorías?</p>
+                     <div class="options">
+                         <label><input type="radio" name="q3-2" value="a"> IEEE 829</label><br>
+                         <label><input type="radio" name="q3-2" value="b"> IEEE 1016</label><br>
+                         <label><input type="radio" name="q3-2" value="c"> IEEE 1062</label><br>
+                         <label><input type="radio" name="q3-2" value="d"> IEEE 1028</label>
+                     </div>
+                     <button class="check-button" onclick="checkAnswer('q3-2', 'd')">Verificar</button>
+                     <div class="feedback" id="feedback-q3-2"></div>
+                 </div>
+             </div>
+
+             <h3>Simulación 3: Integrando Estándares</h3>
+             <div class="simulation" id="simulation3">
+                  <h4>Escenario:</h4>
+                 <p class="scenario-description">Una organización busca mejorar la calidad de su producto software. Han decidido centrarse primero en asegurar que los artefactos clave del desarrollo sean de alta calidad y que sus procesos sean consistentes. Planean iniciar definiendo plantillas para documentos de diseño y pruebas, y luego evaluar la madurez de sus procesos de desarrollo y pruebas.</p>
+                 <div class="question" id="sim3-1">
+                     <h4>Pregunta:</h4>
+                     <p>Para abordar este objetivo, ¿qué combinación de estándares es la más relevante para iniciar? (Selecciona dos opciones, una de cada tipo principal de estándar).</p>
+                      <div class="options">
+                         <label><input type="checkbox" name="sim3-1" value="a"> ISO/IEC 25000 (SQuaRE)</label><br>
+                         <label><input type="checkbox" name="sim3-1" value="b"> ISO/IEC 15504 (SPICE)</label><br>
+                         <label><input type="checkbox" name="sim3-1" value="c"> IEEE 829 (Documentación de Pruebas)</label><br>
+                         <label><input type="checkbox" name="sim3-1" value="d"> IEEE 1016 (Diseño de Software)</label>
+                     </div>
+                      <button class="check-button" onclick="checkMultiAnswer('sim3-1', ['b', 'c', 'd'])">Verificar</button>
+                     <div class="feedback" id="feedback-sim3-1"></div>
+                 </div>
+            </div>
+
+        </section>
+
+         <section id="conclusion">
+            <h2>Conclusión</h2>
+            <p>ISO/IEC 25000 nos ayuda a entender y definir qué significa la calidad del <em>producto</em> software. ISO/IEC 15504 nos permite evaluar y mejorar los <em>procesos</em> con los que creamos software. Los estándares IEEE proporcionan <em>guías prácticas y formatos</em> para actividades y artefactos específicos dentro de esos procesos. Utilizar estos estándares de manera conjunta es fundamental para construir y mantener software de alta calidad.</p>
+        </section>
+
+    </div> <!-- /container -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // This function is general for single-choice (radio button) questions
+            window.checkAnswer = function(questionId, correctAnswer) {
+                const questionElement = document.getElementById(questionId);
+                const feedbackElement = document.getElementById('feedback-' + questionId);
+                const selectedOption = questionElement.querySelector('input[name="' + questionId + '"]:checked');
+                const checkButton = questionElement.querySelector('.check-button');
+
+                // Reset feedback
+                feedbackElement.style.display = 'none';
+                feedbackElement.className = 'feedback'; // Remove previous classes
+
+                if (!selectedOption) {
+                    feedbackElement.classList.add('incorrect');
+                    feedbackElement.textContent = 'Por favor, selecciona una opción.';
+                    feedbackElement.style.display = 'block';
+                    return;
+                }
+
+                const userAnswer = selectedOption.value;
+                let explanation = '';
+
+                // Add specific explanations based on the question
+                if (questionId === 'q1-1') {
+                    explanation = (userAnswer === correctAnswer) ?
+                        'Correcto. La Usabilidad se refiere a qué tan fácil es entender, aprender y operar el software.' :
+                        `Incorrecto. La respuesta correcta es Usabilidad. Las dificultades para encontrar funcionalidades básicas indican problemas de interfaz y navegación, relacionados con la Usabilidad.`;
+                } else if (questionId === 'q1-2') {
+                     explanation = (userAnswer === correctAnswer) ?
+                        'Correcto. La Portabilidad se refiere a la capacidad del software para ser transferido de un entorno (hardware, software u otro entorno operativo) a otro.' :
+                        `Incorrecto. La respuesta correcta es Portabilidad. El problema de instalación en un nuevo sistema operativo cae bajo esta característica.`;
+                } else if (questionId === 'sim1-1') {
+                     explanation = (userAnswer === correctAnswer) ?
+                        'Correcto. La Eficiencia de Desempeño incluye el comportamiento temporal (tiempos de respuesta) y la utilización de recursos bajo diferentes cargas.' :
+                        `Incorrecto. La respuesta correcta es Eficiencia de Desempeño. Aunque la funcionalidad es correcta (Idoneidad Funcional), el rendimiento bajo carga (tiempo de respuesta) es un aspecto clave de la Eficiencia de Desempeño.`;
+                } else if (questionId === 'q2-1') {
+                     explanation = (userAnswer === correctAnswer) ?
+                        'Correcto. El Nivel 1 (Realizado) implica que el proceso se lleva a cabo, pero sin gestión formal (planificación, monitorización, control de productos de trabajo).' :
+                        `Incorrecto. La respuesta correcta es Nivel 1: Realizado. El software funciona (proceso realizado), pero la falta de procedimientos, planes y monitorización impide alcanzar niveles superiores como Gestionado (Nivel 2) o Establecido (Nivel 3).`;
+                } else if (questionId === 'q2-2') {
+                     explanation = (userAnswer === correctAnswer) ?
+                        'Correcto. El Nivel 3 (Establecido) implica el uso de procesos definidos y estandarizados en la organización, aunque la gestión cuantitativa y la predicción no son aún la norma (eso sería Nivel 4).' :
+                        `Incorrecto. La respuesta correcta es Nivel 3: Establecido. El uso de procesos definidos y seguidos por todos los equipos es característico del Nivel 3. Nivel 2 sería solo a nivel de proyecto individual. Nivel 4 implica gestión y predicción cuantitativa.`;
+                } else if (questionId === 'sim2-1') {
+                     explanation = (userAnswer === correctAnswer) ?
+                        'Correcto. Los requisitos se "realizan" (Nivel 1), pero la falta de documentación formal, gestión de cambios y trazabilidad significa que no está gestionado (Nivel 2) ni establecido (Nivel 3).' :
+                        `Incorrecto. La respuesta correcta es Nivel 1: Realizado. Los requisitos se capturan (el proceso se realiza), pero la falta de planificación, monitorización, control y documentación formal lo mantiene en el Nivel 1, sin alcanzar Nivel 2 (Gestionado) ni superiores.`;
+                } else if (questionId === 'q3-1') {
+                     explanation = (userAnswer === correctAnswer) ?
+                        'Correcto. IEEE 829 es el estándar específico para la documentación de pruebas de software.' :
+                        `Incorrecto. La respuesta correcta es IEEE 829. IEEE 1008 es para pruebas unitarias, IEEE 1028 para revisiones/auditorías, IEEE 1016 para diseño.`;
+                } else if (questionId === 'q3-2') {
+                     explanation = (userAnswer === correctAnswer) ?
+                        'Correcto. IEEE 1028 proporciona pautas detalladas para realizar revisiones formales (como inspecciones, walkthroughs) y auditorías de software.' :
+                        `Incorrecto. La respuesta correcta es IEEE 1028. Es el estándar que cubre los procedimientos para revisiones y auditorías.`;
+                }
+                // Add more explanations for other questions as needed
+
+                if (userAnswer === correctAnswer) {
+                    feedbackElement.classList.add('correct');
+                    feedbackElement.innerHTML = '¡Correcto! ' + explanation;
+                } else {
+                    feedbackElement.classList.add('incorrect');
+                     feedbackElement.innerHTML = 'Incorrecto. ' + explanation;
+                }
+
+                feedbackElement.style.display = 'block';
+
+                // Optionally disable inputs and button after checking
+                 // const options = questionElement.querySelectorAll('input[name="' + questionId + '"]');
+                 // options.forEach(option => option.disabled = true);
+                 // checkButton.disabled = true;
+            };
+
+             // Function for multi-choice (checkbox) questions
+            window.checkMultiAnswer = function(questionId, correctAnswers) {
+                 const questionElement = document.getElementById(questionId);
+                 const feedbackElement = document.getElementById('feedback-' + questionId);
+                 const selectedOptions = questionElement.querySelectorAll('input[name="' + questionId + '"]:checked');
+                 const checkButton = questionElement.querySelector('.check-button');
+
+                 // Reset feedback
+                 feedbackElement.style.display = 'none';
+                 feedbackElement.className = 'feedback'; // Remove previous classes
+
+                 if (selectedOptions.length === 0) {
+                     feedbackElement.classList.add('incorrect');
+                     feedbackElement.textContent = 'Por favor, selecciona al menos una opción.';
+                     feedbackElement.style.display = 'block';
+                     return;
+                 }
+
+                 const userAnswers = Array.from(selectedOptions).map(option => option.value);
+
+                 // Check if ALL correct answers are among the user's selection AND no incorrect ones are selected
+                 const isCorrect = correctAnswers.every(ans => userAnswers.includes(ans)) &&
+                                   userAnswers.every(ans => correctAnswers.includes(ans));
+
+                 let explanation = '';
+                 if (questionId === 'sim3-1') {
+                      explanation = isCorrect ?
+                         'Correcto. Para definir plantillas de documentos (diseño, pruebas) se usan estándares prácticos como IEEE 1016/829. Para evaluar la madurez de procesos, se usa SPICE (ISO 15504). ISO 25000 sería relevante para definir qué *atributos* de calidad buscar en el producto, pero no la metodología de evaluación de procesos o las plantillas documentales específicas.' :
+                         'Incorrecto. Para definir plantillas y guías documentales (como diseño o pruebas) se usan estándares prácticos de IEEE (como IEEE 1016 o IEEE 829). Para evaluar la madurez de los procesos de desarrollo y pruebas, se utiliza ISO/IEC 15504 (SPICE).';
+                 }
+                 // Add more explanations for other multi-choice questions
+
+                 if (isCorrect) {
+                     feedbackElement.classList.add('correct');
+                     feedbackElement.innerHTML = '¡Correcto! ' + explanation;
+                 } else {
+                     feedbackElement.classList.add('incorrect');
+                      feedbackElement.innerHTML = 'Incorrecto. ' + explanation;
+                 }
+
+                 feedbackElement.style.display = 'block';
+
+                 // Optionally disable inputs and button after checking
+                 // const options = questionElement.querySelectorAll('input[name="' + questionId + '"]');
+                 // options.forEach(option => option.disabled = true);
+                 // checkButton.disabled = true;
+            };
+        });
+    </script>
+
+</body>
+</html>
