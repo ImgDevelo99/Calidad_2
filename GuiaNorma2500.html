@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Interactiva ISO/IEC 25000 (Intermedio)</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #fff;
+            padding: 10px 20px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Para espaciar el logo y el texto */
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        header img {
+            height: 40px; /* Ajusta según sea necesario */
+            margin-right: 15px;
+        }
+
+        header span {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #2e8b57; /* Color verde similar al logo */
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2, h3 {
+            color: #2e8b57;
+        }
+
+        .step {
+            display: none; /* Hidden by default */
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
+        }
+
+        .step.active {
+            display: block; /* Show active step */
+        }
+
+        .navigation-buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .navigation-buttons button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            background-color: #2e8b57;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+
+        .navigation-buttons button:hover:not(:disabled) {
+            background-color: #246a43;
+        }
+
+        .navigation-buttons button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .exercise {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px dashed #2e8b57;
+            background-color: #e9f5ee;
+        }
+
+        .exercise h4 {
+            margin-top: 0;
+            color: #2e8b57;
+        }
+
+        .feedback {
+            margin-top: 10px;
+            padding: 10px;
+            border-left: 4px solid;
+            display: none; /* Hidden by default */
+        }
+
+        .feedback.correct {
+            border-color: #4CAF50;
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .feedback.incorrect {
+            border-color: #f44336;
+            background-color: #ffebee;
+            color: #c62828;
+        }
+
+        .visual-demo {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #eee;
+            border-left: 4px solid #2e8b57;
+            overflow-x: auto; /* For wide text diagrams */
+        }
+
+        .visual-demo pre {
+            background-color: #ddd;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        /* Style for lists in demos */
+        .visual-demo ul, .visual-demo ol {
+            padding-left: 20px;
+        }
+
+         .visual-demo li {
+             margin-bottom: 5px;
+         }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: calc(100% - 18px); /* Adjust for padding and border */
+        }
+
+        .radio-group label {
+            font-weight: normal;
+            display: inline-block;
+            margin-right: 15px;
+        }
+
+        .radio-group input[type="radio"] {
+            margin-right: 5px;
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-left">
+            <img src="https://i.postimg.cc/mZzx20gW/Logosimbolo-SENA-PRINCIPAL.png" alt="Logo SENA">
+            <span>Centro de Servicios y Gestión Empresarial</span>
+        </div>
+        <div>
+            <!-- Puedes añadir más elementos aquí si es necesario en el lado derecho del header -->
+        </div>
+    </header>
+
+    <div class="container">
+        <h1>Guía Interactiva: ISO/IEC 25000 - Nivel Intermedio</h1>
+
+        <div id="guide-content">
+            <!-- Step 1: Introduction -->
+            <div id="step-1" class="step active">
+                <h2>Paso 1: Introducción a ISO/IEC 25000 (SQuaRE)</h2>
+                <p>¡Bienvenido a esta guía interactiva sobre la familia de normas ISO/IEC 25000, también conocida como SQuaRE (System and Software Quality Requirements and Evaluation)! A nivel intermedio, profundizaremos en cómo estas normas nos ayudan a entender, especificar y evaluar la calidad del software y los sistemas.</p>
+                <p>SQuaRE reemplaza a las antiguas normas ISO 9126 e ISO 14598, proporcionando un marco más completo y moderno para la gestión de la calidad del producto de software.</p>
+                <p>En este módulo, nos enfocaremos principalmente en dos partes clave de la familia:</p>
+                <ul>
+                    <li><strong>ISO/IEC 25010:</strong> Modelo de Calidad de Producto (El 'qué' de la calidad).</li>
+                    <li><strong>ISO/IEC 2502x:</strong> Modelos de Medición de Calidad (El 'cómo' medir la calidad).</li>
+                </ul>
+
+                <div class="exercise">
+                    <h4>Ejercicio 1.1: Pregunta de Verificación</h4>
+                    <p>¿Cuál es el nombre corto de la familia de normas ISO/IEC 25000?</p>
+                    <div class="radio-group">
+                        <input type="radio" name="q1" id="q1a" value="a"> <label for="q1a">SQuaRE</label><br>
+                        <input type="radio" name="q1" id="q1b" value="b"> <label for="q1b">ISO 9001</label><br>
+                        <input type="radio" name="q1" id="q1c" value="c"> <label for="q1c">CMMI</label><br>
+                    </div>
+                    <button onclick="checkExercise(1, 'q1', 'a', 'SQuaRE es el nombre corto de la familia ISO/IEC 25000, que significa System and Software Quality Requirements and Evaluation. ISO 9001 es gestión de calidad general y CMMI es un modelo de madurez de procesos.')">Verificar</button>
+                    <div id="feedback-1" class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- Step 2: ISO/IEC 25010 - Quality Model Overview -->
+            <div id="step-2" class="step">
+                <h2>Paso 2: ISO/IEC 25010 - El Modelo de Calidad de Producto</h2>
+                <p>ISO/IEC 25010 define un modelo de calidad que categoriza las propiedades de calidad de un producto de software. Este modelo es jerárquico y se divide en 8 características principales, cada una subdividida en sub-características.</p>
+                <p>Entender este modelo es fundamental para especificar y evaluar la calidad de manera estructurada.</p>
+                <p>Las 8 características principales son:</p>
+                <ol>
+                    <li>Adecuación funcional (Functional Suitability)</li>
+                    <li>Eficiencia de desempeño (Performance Efficiency)</li>
+                    <li>Compatibilidad (Compatibility)</li>
+                    <li>Usabilidad (Usability)</li>
+                    <li>Fiabilidad (Reliability)</li>
+                    <li>Seguridad (Security)</li>
+                    <li>Mantenibilidad (Maintainability)</li>
+                    <li>Portabilidad (Portability)</li>
+                </ol>
+
+                <div class="visual-demo">
+                    <h4>Demostración Visual (Texto): Estructura Jerárquica Simplificada</h4>
+                    <p>Imagina el modelo como un árbol:</p>
+                    <pre>
+CALIDAD DEL PRODUCTO
+├── Adecuación Funcional
+│   ├── Completitud Funcional
+│   ├── Corrección Funcional
+│   └── Pertinencia Funcional
+├── Eficiencia de Desempeño
+│   ├── Comportamiento Temporal
+│   ├── Utilización de Recursos
+│   └── Capacidad
+├── ... (Otras características)
+└── Portabilidad
+    ├── Adaptabilidad
+    ├── Instalabilidad
+    ├── Coexistencia
+    └── Capacidad de Reemplazo
+                    </pre>
+                    <p>Cada característica se descompone en sub-características que describen aspectos más específicos de la calidad.</p>
+                </div>
+
+                 <div class="exercise">
+                    <h4>Ejercicio 2.1: Identifica la Característica</h4>
+                    <p>Un usuario se queja de que una aplicación tarda demasiado en cargar los datos. ¿A qué característica principal de ISO 25010 está relacionado este problema?</p>
+                    <input type="text" id="q2a" placeholder="Escribe tu respuesta aquí">
+                    <button onclick="checkExercise(2, 'q2a', 'Eficiencia de desempeño', 'La velocidad y el tiempo de respuesta están directamente relacionados con la Eficiencia de Desempeño.')">Verificar</button>
+                    <div id="feedback-2" class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- Step 3: ISO/IEC 25010 - Detailed Characteristics -->
+            <div id="step-3" class="step">
+                <h2>Paso 3: Detalle de las Características de ISO/IEC 25010</h2>
+                <p>Veamos algunas de las características con más detalle, enfocándonos en qué implica cada una y sus sub-características clave.</p>
+
+                <h3>Fiabilidad (Reliability)</h3>
+                <p>Mide la capacidad del sistema para desempeñar sus funciones especificadas en condiciones determinadas durante un período de tiempo determinado.</p>
+                <ul>
+                    <li><strong>Madurez (Maturity):</strong> Frecuencia de fallos.</li>
+                    <li><strong>Disponibilidad (Availability):</strong> Capacidad de estar operativo y accesible cuando se necesita.</li>
+                    <li><strong>Tolerancia a fallos (Fault Tolerance):</strong> Capacidad de funcionar a pesar de la presencia de fallos.</li>
+                    <li><strong>Capacidad de recuperación (Recoverability):</strong> Capacidad de restablecer un estado operativo y recuperar datos tras un fallo.</li>
+                </ul>
+
+                <h3>Usabilidad (Usability)</h3>
+                <p>Mide la capacidad del producto para ser entendido, aprendido, operado y atractivo para el usuario, cuando es usado en condiciones específicas.</p>
+                 <ul>
+                    <li><strong>Capacidad para ser entendido (Understandability):</strong> Facilidad con la que los usuarios reconocen el propósito y uso del producto.</li>
+                    <li><strong>Capacidad de aprendizaje (Learnability):</strong> Facilidad con la que los usuarios pueden aprender a usar el producto.</li>
+                    <li><strong>Capacidad para ser operado (Operability):</strong> Facilidad con la que los usuarios pueden operar y controlar el producto.</li>
+                    <li><strong>Protección frente a errores de usuario (User Error Protection):</strong> Capacidad de prevenir errores de usuario o mitigar sus consecuencias.</li>
+                     <li><strong>Estética de la interfaz de usuario (User Interface Aesthetics):</strong> Qué tan agradable y atractiva es la interfaz.</li>
+                     <li><strong>Accesibilidad (Accessibility):</strong> Facilidad con la que el producto puede ser usado por personas con diversas capacidades.</li>
+                </ul>
+                 <p>Y así con cada una de las 8 características...</p>
+
+                <div class="exercise">
+                    <h4>Ejercicio 3.1: Relacionando Conceptos</h4>
+                    <p>¿Qué sub-característica de la Fiabilidad se refiere a la capacidad de un sistema de volver a funcionar después de una caída?</p>
+                     <input type="text" id="q3a" placeholder="Escribe tu respuesta aquí">
+                    <button onclick="checkExercise(3, 'q3a', 'Capacidad de recuperación', 'La Capacidad de recuperación (Recoverability) es la que permite al sistema restablecerse tras un fallo.')">Verificar</button>
+                    <div id="feedback-3" class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- Step 4: ISO/IEC 2502x - Quality Measurement -->
+            <div id="step-4" class="step">
+                <h2>Paso 4: ISO/IEC 2502x - Modelos de Medición de Calidad</h2>
+                <p>El modelo 25010 nos dice 'qué' es la calidad. Las normas 25020, 25021, etc., nos dicen 'cómo' medir esa calidad.</p>
+                <p>La medición de la calidad implica definir métricas que permitan cuantificar las características y sub-características.</p>
+                <p>Conceptos clave:</p>
+                <ul>
+                    <li><strong>Medida (Measure):</strong> Una variable a la que se asigna un valor numérico (ej: número de fallos, tiempo de respuesta).</li>
+                    <li><strong>Medida Base (Base Measure):</strong> No depende de otra medida (ej: número de líneas de código, número de fallos detectados).</li>
+                    <li><strong>Medida Derivada (Derived Measure):</strong> Se calcula a partir de dos o más medidas base (ej: densidad de fallos = número de fallos / líneas de código).</li>
+                    <li><strong>Indicador (Indicator):</strong> Representa el nivel de logro de un requisito o característica de calidad. Combina valores de medidas (ej: "El sistema alcanza el 99.5% de disponibilidad").</li>
+                </ul>
+
+                 <div class="visual-demo">
+                    <h4>Demostración Visual (Texto): Relación Medida - Indicador - Característica</h4>
+                    <p>Una medida por sí sola no nos dice si la calidad es buena o mala. Necesitamos un indicador y un valor de referencia para evaluarla.</p>
+                    <pre>
+Medida Base: Número de horas de operación antes de un fallo (Tiempo medio entre fallos - MTBF)
+   ↓
+Medida Base: Número total de horas de operación
+   ↓
+Medida Derivada: MTBF (Horas de operación / Número de fallos) -> Si tuviéramos otra medida "Número de fallos"
+   ↓
+Indicador (Relacionado a Fiabilidad - Disponibilidad): "El sistema tiene un MTBF de 500 horas"
+   ↓
+Evaluación: ¿Es 500 horas un buen MTBF? Depende del contexto y los requisitos.
+                    </pre>
+                    <p>Las medidas nos dan datos crudos; los indicadores nos dan contexto para evaluar la calidad.</p>
+                </div>
+
+
+                <div class="exercise">
+                    <h4>Ejercicio 4.1: Tipo de Medida</h4>
+                    <p>La "Densidad de fallos" (Número de fallos por mil líneas de código) es un ejemplo de:</p>
+                     <div class="radio-group">
+                        <input type="radio" name="q4" id="q4a" value="a"> <label for="q4a">Medida Base</label><br>
+                        <input type="radio" name="q4" id="q4b" value="b"> <label for="q4b">Medida Derivada</label><br>
+                        <input type="radio" name="q4" id="q4c" value="c"> <label for="q4c">Indicador</label><br>
+                    </div>
+                     <button onclick="checkExercise(4, 'q4', 'b', 'La densidad de fallos se calcula a partir de dos medidas base (Número de fallos y Líneas de código), por lo tanto, es una Medida Derivada. Un Indicador usaría esta medida para expresar un nivel de calidad (ej: "La densidad de fallos es aceptable según el umbral de 0.5 fallos/KLOC").')">Verificar</button>
+                    <div id="feedback-4" class="feedback"></div>
+                </div>
+            </div>
+
+             <!-- Step 5: Applying 25010 & 2502x -->
+            <div id="step-5" class="step">
+                <h2>Paso 5: Aplicando ISO/IEC 25010 y 2502x</h2>
+                <p>En un nivel intermedio, la aplicación implica usar estos modelos para:</p>
+                <ol>
+                    <li><strong>Especificar Requisitos de Calidad:</strong> No solo funcionales, sino también de calidad. Por ejemplo: "El sistema debe tener una Disponibilidad del 99.9%" (Fiabilidad - Disponibilidad, con un Indicador y valor).</li>
+                    <li><strong>Planificar la Evaluación:</strong> Decidir qué características se evaluarán, qué medidas se usarán y qué valores se considerarán aceptables.</li>
+                    <li><strong>Medir y Evaluar:</strong> Recopilar datos (medidas) y analizarlos usando indicadores para determinar si se cumplen los requisitos de calidad.</li>
+                </ol>
+
+                <div class="visual-demo">
+                    <h4>Demostración Visual (Texto): Proceso Simplificado de Evaluación</h4>
+                    <p>Cómo se conecta el modelo de calidad y la medición:</p>
+                    <pre>
+Necesidad/Requisito -> Especificar CALIDAD (usando 25010)
+   (Ej: El sistema debe ser rápido)
+         ↓
+Elige CARACTERÍSTICA(S) (Ej: Eficiencia de Desempeño)
+         ↓
+Elige SUB-CARACTERÍSTICA(S) (Ej: Comportamiento Temporal)
+         ↓
+Define REQUISITO MEDIBLE (Ej: El tiempo de respuesta para la búsqueda debe ser < 3 segundos)
+         ↓
+Define MEDIDAS (Ej: Tiempo transcurrido desde la solicitud hasta la respuesta)
+         ↓
+Realiza MEDICIÓN (Ej: Ejecutar 100 búsquedas, registrar tiempos)
+         ↓
+Calcula INDICADOR (Ej: Tiempo promedio de respuesta = 2.5 segundos)
+         ↓
+EVALÚA (Ej: 2.5s < 3s -> Requisito de tiempo de respuesta CUMPLIDO)
+                    </pre>
+                    <p>Este proceso sistemático nos permite pasar de requisitos cualitativos ("rápido") a evaluaciones cuantitativas ("tiempo promedio de 2.5s, requisito cumplido").</p>
+                </div>
+
+                <div class="exercise">
+                    <h4>Ejercicio 5.1: Ordenando Pasos</h4>
+                    <p>Ordena los siguientes pasos de un proceso de evaluación de calidad simple (escribe los números en orden, separados por coma):</p>
+                    <p>1. Definir Medidas</p>
+                    <p>2. Especificar Requisito de Calidad (usando 25010)</p>
+                    <p>3. Medir y Analizar</p>
+                    <p>4. Evaluar contra Requisito</p>
+                    <input type="text" id="q5a" placeholder="Ej: 2,1,3,4">
+                    <button onclick="checkExercise(5, 'q5a', '2,1,3,4', 'El orden lógico es primero definir lo que se espera (Especificar Requisito), luego cómo se va a medir (Definir Medidas), después obtener los datos (Medir y Analizar), y finalmente comparar los resultados con lo esperado (Evaluar contra Requisito).')">Verificar</button>
+                    <div id="feedback-5" class="feedback"></div>
+                </div>
+            </div>
+
+             <!-- Step 6: Summary and Next Steps -->
+            <div id="step-6" class="step">
+                <h2>Paso 6: Resumen y Próximos Pasos</h2>
+                <p>¡Felicidades! Has completado esta guía interactiva de nivel intermedio sobre ISO/IEC 25000.</p>
+                <p>Hemos cubierto:</p>
+                <ul>
+                    <li>La familia SQuaRE y su propósito.</li>
+                    <li>El modelo de calidad ISO/IEC 25010 y sus 8 características.</li>
+                    <li>Los conceptos de medición (Medida Base, Derivada, Indicador) de ISO/IEC 2502x.</li>
+                    <li>Cómo estos modelos se utilizan conjuntamente para especificar y evaluar la calidad.</li>
+                </ul>
+                <p>A nivel intermedio, lo crucial es poder identificar qué características aplican a un requisito, proponer medidas relevantes y entender cómo un indicador ayuda a tomar una decisión de calidad.</p>
+                <p>Para avanzar, puedes explorar otras partes de la familia 25000 (como 25030 para requisitos o 25040 para el proceso de evaluación) o buscar ejemplos prácticos de aplicación en diferentes tipos de software.</p>
+                <p>¡Sigue aprendiendo y aplicando estos principios para construir y evaluar software de alta calidad!</p>
+                 <div class="exercise">
+                    <h4>Ejercicio 6.1: Reflexión Final</h4>
+                    <p>¿Qué parte de ISO 25000 (25010 o 2502x) te pareció más útil y por qué? (No hay respuesta correcta o incorrecta aquí, solo reflexión)</p>
+                    <input type="text" id="q6a" placeholder="Escribe tu reflexión aquí">
+                     <!-- No hay verificación automática para reflexión, solo un botón para "completar" -->
+                    <button onclick="document.getElementById('feedback-6').innerHTML = '¡Excelente reflexión! Sigue explorando.'; document.getElementById('feedback-6').className = 'feedback correct'; document.getElementById('feedback-6').style.display = 'block';">Completar</button>
+                    <div id="feedback-6" class="feedback"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation-buttons">
+            <button id="prevBtn" onclick="changeStep(-1)" disabled>Anterior</button>
+            <button id="nextBtn" onclick="changeStep(1)">Siguiente</button>
+        </div>
+
+    </div>
+
+    <script>
+        let currentStepIndex = 0;
+        const steps = document.querySelectorAll('.step');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function showStep(index) {
+            steps.forEach((step, i) => {
+                step.classList.remove('active');
+                if (i === index) {
+                    step.classList.add('active');
+                }
+            });
+            updateButtons();
+        }
+
+        function updateButtons() {
+            prevBtn.disabled = currentStepIndex === 0;
+            nextBtn.disabled = currentStepIndex === steps.length - 1;
+        }
+
+        function changeStep(direction) {
+            currentStepIndex += direction;
+            showStep(currentStepIndex);
+        }
+
+        function checkExercise(stepNum, inputId, correctAnswer, explanation) {
+            const input = document.getElementById(inputId);
+            const feedbackDiv = document.getElementById(`feedback-${stepNum}`);
+            let userAnswer = input.value.trim();
+
+            // Handle radio buttons differently
+            if (input.type === 'radio') {
+                 const selectedRadio = document.querySelector(`input[name="${inputId}"]:checked`);
+                 if (selectedRadio) {
+                     userAnswer = selectedRadio.value;
+                 } else {
+                     feedbackDiv.className = 'feedback incorrect';
+                     feedbackDiv.innerHTML = 'Por favor, selecciona una opción.';
+                     feedbackDiv.style.display = 'block';
+                     return; // Exit if no radio is selected
+                 }
+            } else if (input.type === 'text') {
+                 // Optional: Normalize text answers (lowercase, remove punctuation if needed)
+                 userAnswer = userAnswer.toLowerCase().replace(/[.,!?;]/g, '').trim();
+                 correctAnswer = correctAnswer.toLowerCase().replace(/[.,!?;]/g, '').trim();
+            }
+
+
+            if (userAnswer === correctAnswer) {
+                feedbackDiv.className = 'feedback correct';
+                feedbackDiv.innerHTML = '¡Correcto! ' + explanation;
+            } else {
+                feedbackDiv.className = 'feedback incorrect';
+                feedbackDiv.innerHTML = 'Incorrecto. ' + explanation;
+            }
+            feedbackDiv.style.display = 'block';
+        }
+
+
+        // Initialize the guide
+        document.addEventListener('DOMContentLoaded', () => {
+            showStep(currentStepIndex);
+        });
+
+    </script>
+
+</body>
+</html>

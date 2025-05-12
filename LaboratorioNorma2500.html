@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio ISO/IEC 25000 Avanzado</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .header {
+            background-color: #00324D; /* Color institucional o similar */
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+        }
+        .header img {
+            height: 40px; /* Ajusta según sea necesario */
+            margin-right: 15px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 1.5em;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        nav {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        nav button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin-right: 5px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        nav button:hover {
+            background-color: #0056b3;
+        }
+        .module {
+            display: none; /* Hidden by default */
+        }
+        .module h2 {
+            color: #00324D;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        .exercise {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .exercise label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        .exercise select, .exercise textarea, .exercise input[type="number"] {
+            width: calc(100% - 22px); /* Adjust for padding and border */
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+        .exercise button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        .exercise button:hover {
+            background-color: #218838;
+        }
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-left: 4px solid #007bff;
+            background-color: #e9ecef;
+            border-radius: 4px;
+        }
+        .feedback.correct {
+            border-left-color: #28a745;
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .feedback.incorrect {
+            border-left-color: #dc3545;
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <img src="https://i.postimg.cc/mZzx20gW/Logosimbolo-SENA-PRINCIPAL.png" alt="Logo SENA">
+        <h1>Centro de Servicios y Gestión Empresarial</h1>
+    </div>
+
+    <div class="container">
+        <h2>Laboratorio Avanzado: Aplicación de ISO/IEC 25000 (SQuaRE)</h2>
+        <p>
+            Bienvenido al laboratorio avanzado de ISO/IEC 25000. Aquí aplicará los principios de la norma
+            SQuaRE para la especificación, medición y evaluación de la calidad del producto software en
+            escenarios prácticos. Se centrará en las divisiones 2501n (Modelo), 2502n (Medición) y 2504n (Evaluación).
+        </p>
+
+        <nav>
+            <button onclick="showModule('module1')">Especificación de Requisitos de Calidad</button>
+            <button onclick="showModule('module2')">Selección y Definición de Métricas</button>
+            <button onclick="showModule('module3')">Evaluación e Interpretación de Resultados</button>
+        </nav>
+
+        <div id="module1" class="module">
+            <h2>Módulo 1: Especificación de Requisitos de Calidad</h2>
+            <p>
+                En este módulo, analizará un escenario y seleccionará las características y subcaracterísticas de calidad
+                más relevantes del modelo de calidad ISO/IEC 25010.
+            </p>
+
+            <div class="exercise">
+                <h3>Ejercicio 1.1: Análisis de Escenario y Características</h3>
+                <p>
+                    <strong>Escenario:</strong> Está desarrollando una aplicación móvil para gestionar transacciones bancarias de alta frecuencia.
+                    La aplicación será utilizada por millones de usuarios simultáneamente en diversos dispositivos y redes.
+                    La seguridad de los datos y la respuesta rápida son críticas.
+                </p>
+                <p>
+                    Seleccione las <strong>tres (3)</strong> características de calidad principales de ISO/IEC 25010 que considera
+                    más críticas para este escenario.
+                </p>
+                <label><input type="checkbox" name="char1" value="Funcionalidad"> Funcionalidad</label><br>
+                <label><input type="checkbox" name="char1" value="Fiabilidad"> Fiabilidad</label><br>
+                <label><input type="checkbox" name="char1" value="Usabilidad"> Usabilidad</label><br>
+                <label><input type="checkbox" name="char1" value="Eficiencia"> Eficiencia</label><br>
+                <label><input type="checkbox" name="char1" value="Mantenibilidad"> Mantenibilidad</label><br>
+                <label><input type="checkbox" name="char1" value="Portabilidad"> Portabilidad</label><br>
+                <label><input type="checkbox" name="char1" value="Seguridad"> Seguridad</label><br>
+                <label><input type="checkbox" name="char1" value="Compatibilidad"> Compatibilidad</label><br>
+                <button onclick="checkExercise(1)">Verificar Ejercicio 1.1</button>
+                <div id="feedback1" class="feedback hidden"></div>
+            </div>
+        </div>
+
+        <div id="module2" class="module">
+            <h2>Módulo 2: Selección y Definición de Métricas</h2>
+            <p>
+                Aquí, se enfocará en cómo medir la calidad. Dada una subcaracterística, seleccionará o definirá
+                métricas de acuerdo con ISO/IEC 2502n.
+            </p>
+
+            <div class="exercise">
+                <h3>Ejercicio 2.1: Selección de Métrica para Eficiencia</h3>
+                <p>
+                    <strong>Subcaracterística:</strong> Comportamiento temporal (Parte de la característica Eficiencia).
+                    Se refiere a los tiempos de respuesta y procesamiento de un software.
+                </p>
+                <p>
+                    Seleccione la métrica que mejor se adapta para medir el "Comportamiento temporal" en el contexto
+                    de una API REST que procesa solicitudes de clientes.
+                </p>
+                <select id="metric2_1">
+                    <option value="">-- Seleccione una métrica --</option>
+                    <option value="lines_of_code">Líneas de Código (LOC)</option>
+                    <option value="average_response_time">Tiempo Promedio de Respuesta</option>
+                    <option value="cyclomatic_complexity">Complejidad Ciclomática</option>
+                    <option value="number_of_defects">Número de Defectos por KLOC</option>
+                </select>
+                <button onclick="checkExercise(2)">Verificar Ejercicio 2.1</button>
+                <div id="feedback2" class="feedback hidden"></div>
+            </div>
+
+            <div class="exercise">
+                <h3>Ejercicio 2.2: Definición de Métrica para Fiabilidad</h3>
+                <p>
+                    <strong>Subcaracterística:</strong> Tolerancia a Fallos (Parte de la característica Fiabilidad).
+                    Se refiere a la capacidad del sistema para operar correctamente a pesar de fallos.
+                </p>
+                <p>
+                    Defina una métrica simple para medir la Tolerancia a Fallos en un sistema que debe
+                    mantenerse operativo incluso si uno de sus nodos de servidor falla. ¿Qué mediría y cómo?
+                </p>
+                <textarea id="metric_definition2_2" rows="4" placeholder="Describa la métrica y cómo se mediría..."></textarea>
+                <button onclick="checkExercise(3)">Verificar Ejercicio 2.2</button>
+                <div id="feedback3" class="feedback hidden"></div>
+            </div>
+        </div>
+
+        <div id="module3" class="module">
+            <h2>Módulo 3: Evaluación e Interpretación de Resultados</h2>
+            <p>
+                En este módulo, aplicará los procesos de evaluación de ISO/IEC 2504n e interpretará resultados
+                de mediciones de calidad.
+            </p>
+
+            <div class="exercise">
+                <h3>Ejercicio 3.1: Interpretación de Resultados de Usabilidad</h3>
+                <p>
+                    <strong>Contexto:</strong> Ha realizado pruebas de usabilidad para una aplicación web de e-commerce,
+                    enfocándose en la subcaracterística "Facilidad de aprendizaje".
+                    El requisito de calidad era: "El 90% de los nuevos usuarios debe completar su primera compra en menos de 5 minutos sin ayuda".
+                </p>
+                <p>
+                    <strong>Resultado de la Medición:</strong> Se observaron 20 nuevos usuarios. 16 completaron la compra en menos de 5 minutos sin ayuda.
+                </p>
+                <p>
+                    Basándose en el requisito y el resultado, ¿se cumple el requisito de calidad?
+                </p>
+                <label><input type="radio" name="eval3_1" value="yes"> Sí, se cumple el requisito.</label><br>
+                <label><input type="radio" name="eval3_1" value="no"> No, no se cumple el requisito.</label><br>
+                <label><input type="radio" name="eval3_1" value="not_enough_info"> No hay información suficiente para determinarlo.</label><br>
+                <button onclick="checkExercise(4)">Verificar Ejercicio 3.1</button>
+                <div id="feedback4" class="feedback hidden"></div>
+            </div>
+
+             <div class="exercise">
+                <h3>Ejercicio 3.2: Decisión Basada en Resultados de Fiabilidad</h3>
+                <p>
+                    <strong>Contexto:</strong> Ha medido el "Tiempo Promedio Entre Fallos (MTBF)" para un módulo crítico de un sistema
+                    de control industrial. El requisito de calidad era: "MTBF >= 1000 horas".
+                </p>
+                <p>
+                    <strong>Resultado de la Medición:</strong> El MTBF calculado es de 850 horas.
+                </p>
+                <p>
+                    Según el proceso de evaluación de ISO/IEC 2504n (Sección 7.3.4 - Decisiones basadas en la evaluación),
+                    ¿cuál sería la acción más apropiada a seguir en este punto?
+                </p>
+                 <select id="decision3_2">
+                    <option value="">-- Seleccione una acción --</option>
+                    <option value="accept">Aceptar el producto ya que está cerca del valor objetivo.</option>
+                    <option value="rework">Rechazar el producto y requerir trabajo de mejora (rework).</option>
+                    <option value="reevaluate_metrics">Re-evaluar la definición de las métricas, quizás no son apropiadas.</option>
+                    <option value="deploy">Desplegar el producto, el MTBF no es tan importante.</option>
+                </select>
+                <button onclick="checkExercise(5)">Verificar Ejercicio 3.2</button>
+                <div id="feedback5" class="feedback hidden"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function showModule(moduleId) {
+            // Hide all modules
+            const modules = document.querySelectorAll('.module');
+            modules.forEach(module => {
+                module.style.display = 'none';
+            });
+
+            // Show the selected module
+            const activeModule = document.getElementById(moduleId);
+            if (activeModule) {
+                activeModule.style.display = 'block';
+            }
+        }
+
+        function getFeedbackDiv(exerciseNum) {
+            const feedbackDiv = document.getElementById(`feedback${exerciseNum}`);
+            feedbackDiv.classList.remove('correct', 'incorrect');
+            feedbackDiv.classList.add('hidden');
+            feedbackDiv.textContent = ''; // Clear previous feedback
+            return feedbackDiv;
+        }
+
+        function displayFeedback(feedbackDiv, isCorrect, message) {
+            feedbackDiv.textContent = message;
+            feedbackDiv.classList.remove('hidden');
+            if (isCorrect) {
+                feedbackDiv.classList.add('correct');
+            } else {
+                feedbackDiv.classList.add('incorrect');
+            }
+        }
+
+        function checkExercise(exerciseNum) {
+            const feedbackDiv = getFeedbackDiv(exerciseNum);
+            let isCorrect = false;
+            let message = "";
+
+            if (exerciseNum === 1) {
+                const selectedCheckboxes = document.querySelectorAll('input[name="char1"]:checked');
+                const selectedValues = Array.from(selectedCheckboxes).map(cb => cb.value);
+
+                // Correct answers for banking app scenario
+                const correctAnswers = ['Fiabilidad', 'Eficiencia', 'Seguridad']; // High frequency, critical data, concurrent users
+
+                // Check if exactly 3 were selected and if they are the correct ones
+                const allCorrectSelected = selectedValues.length === 3 &&
+                                           correctAnswers.every(ans => selectedValues.includes(ans)) &&
+                                           selectedValues.every(val => correctAnswers.includes(val)); // Ensure no extra incorrect ones
+
+                if (allCorrectSelected) {
+                    isCorrect = true;
+                    message = "¡Correcto! Fiabilidad (tolerancia a fallos, madurez), Eficiencia (comportamiento temporal, utilización de recursos) y Seguridad son críticas para una aplicación bancaria de alta frecuencia. La Fiabilidad asegura que no falle, la Eficiencia que sea rápida bajo carga, y la Seguridad que proteja los datos.";
+                } else {
+                    isCorrect = false;
+                    if (selectedValues.length !== 3) {
+                         message = `Incorrecto. Debes seleccionar exactamente 3 características.`;
+                    } else {
+                         const correctSelected = selectedValues.filter(val => correctAnswers.includes(val));
+                         const incorrectSelected = selectedValues.filter(val => !correctAnswers.includes(val));
+                         message = `Incorrecto. Las características más críticas son Fiabilidad, Eficiencia y Seguridad. Seleccionaste ${selectedValues.join(', ')}. `;
+                         if (correctSelected.length > 0) {
+                             message += `Identificaste correctamente: ${correctSelected.join(', ')}. `;
+                         }
+                         if (incorrectSelected.length > 0) {
+                             message += `Considera por qué ${incorrectSelected.join(', ')} puede ser menos crítico que las otras en este escenario particular de *alta frecuencia y datos sensibles*.`;
+                         }
+                          message += `La Usabilidad es importante, pero quizás menos crítica que la estabilidad, velocidad y protección de datos en un sistema bancario central. La Mantenibilidad y Portabilidad son importantes para el desarrollo y despliegue, pero Fiabilidad, Eficiencia y Seguridad son requisitos directos del *producto en uso* para este tipo de sistema.`;
+                    }
+                }
+                displayFeedback(feedbackDiv, isCorrect, message);
+
+            } else if (exerciseNum === 2) {
+                const selectedMetric = document.getElementById('metric2_1').value;
+                const correctAnswer = 'average_response_time';
+
+                if (selectedMetric === correctAnswer) {
+                    isCorrect = true;
+                    message = "¡Correcto! El Tiempo Promedio de Respuesta (Average Response Time) es una métrica estándar para medir el Comportamiento Temporal de una API o sistema transaccional. Las otras métricas miden complejidad, tamaño o densidad de defectos, no el tiempo de procesamiento.";
+                } else if (selectedMetric === "") {
+                     isCorrect = false;
+                     message = "Por favor, selecciona una métrica antes de verificar.";
+                }
+                else {
+                    isCorrect = false;
+                    message = `Incorrecto. Seleccionaste "${document.getElementById('metric2_1').options[document.getElementById('metric2_1').selectedIndex].text}". Esa métrica (${selectedMetric}) no mide el comportamiento temporal. El Comportamiento Temporal se mide con métricas como tiempo de respuesta, rendimiento (throughput) o tiempo de procesamiento.`;
+                }
+                displayFeedback(feedbackDiv, isCorrect, message);
+
+            } else if (exerciseNum === 3) {
+                 const definitionText = document.getElementById('metric_definition2_2').value.trim();
+
+                 if (definitionText.length < 20) { // Basic check for minimal effort
+                     isCorrect = false;
+                     message = "Por favor, proporciona una definición más completa de la métrica y cómo se mediría.";
+                 } else if (definitionText.toLowerCase().includes('tiempo') && definitionText.toLowerCase().includes('operacion') && definitionText.toLowerCase().includes('falla')) {
+                     // Check for keywords related to operational time before failure
+                     isCorrect = true;
+                     message = "¡Correcto! Una métrica para la Tolerancia a Fallos podría ser el Tiempo Promedio hasta la Recuperación (MTTR - Mean Time To Recovery) o simplemente el tiempo que el sistema permanece operativo (o una función específica) después de que un componente falla. Tu definición parece apuntar en la dirección correcta de medir la resiliencia o el tiempo operativo en condiciones de fallo.";
+                 } else {
+                     // Broader check if they mention something related to uptime, resilience, recovery
+                     if (definitionText.toLowerCase().includes('disponibilidad') || definitionText.toLowerCase().includes('recuperacion') || definitionText.toLowerCase().includes('resiliencia') || definitionText.toLowerCase().includes('uptime')) {
+                         isCorrect = true;
+                         message = "¡Casi correcto! Tu definición toca conceptos importantes como la disponibilidad o la recuperación. Una métrica clásica de Tolerancia a Fallos (relacionada con Fiabilidad) es el Tiempo Promedio Entre Fallos (MTBF - Mean Time Between Failures) o el Tiempo Promedio Hasta la Recuperación (MTTR - Mean Time To Recovery). La idea es medir cuánto tiempo puede operar sin fallar o cuán rápido se recupera.";
+                     } else {
+                        isCorrect = false;
+                        message = `Incorrecto. Para medir la Tolerancia a Fallos, necesitas una métrica que cuantifique la capacidad del sistema para seguir funcionando o recuperarse rápidamente ante fallos. Métricas como el Tiempo Promedio Entre Fallos (MTBF) o el Tiempo Promedio Hasta la Recuperación (MTTR) son ejemplos adecuados. Tu definición no parece enfocarse en la medición de la resiliencia ante fallos.`;
+                     }
+                 }
+                 displayFeedback(feedbackDiv, isCorrect, message);
+
+            } else if (exerciseNum === 4) {
+                 const selectedOption = document.querySelector('input[name="eval3_1"]:checked');
+                 const answer = selectedOption ? selectedOption.value : null;
+
+                 if (!answer) {
+                     isCorrect = false;
+                     message = "Por favor, selecciona una opción antes de verificar.";
+                 } else {
+                     const usersObserved = 20;
+                     const usersMetReq = 16;
+                     const requiredPercentage = 90;
+                     const measuredPercentage = (usersMetReq / usersObserved) * 100;
+
+                     if (measuredPercentage >= requiredPercentage) { // 16/20 * 100 = 80%
+                          // This condition will be false
+                          isCorrect = (answer === 'yes'); // Should be 'no'
+                     } else {
+                          // This condition will be true (80% < 90%)
+                          isCorrect = (answer === 'no'); // Should be 'no'
+                     }
+
+
+                     if (isCorrect) {
+                         message = `¡Correcto! El requisito no se cumple. La medición resultó en ${measuredPercentage.toFixed(2)}% (${usersMetReq} de ${usersObserved} usuarios), lo cual es inferior al 90% requerido. Según ISO/IEC 2504n, si el valor medido no alcanza el valor objetivo definido en los requisitos, la evaluación indica que el requisito no se cumple.`;
+                     } else {
+                         message = `Incorrecto. El requisito no se cumple. Se requiere que el 90% cumpla la condición, pero solo el ${measuredPercentage.toFixed(2)}% (${usersMetReq} de ${usersObserved} usuarios) lo logró. Según ISO/IEC 2504n, el resultado de la evaluación compara el valor medido con el valor objetivo del requisito. Si el valor medido está por debajo del umbral, el requisito *no* se cumple.`;
+                     }
+                 }
+                 displayFeedback(feedbackDiv, isCorrect, message);
+
+            } else if (exerciseNum === 5) {
+                 const selectedDecision = document.getElementById('decision3_2').value;
+                 const correctAnswer = 'rework';
+
+                 if (selectedDecision === "") {
+                     isCorrect = false;
+                     message = "Por favor, selecciona una acción antes de verificar.";
+                 } else if (selectedDecision === correctAnswer) {
+                     isCorrect = true;
+                     message = "¡Correcto! Según ISO/IEC 2504n, si el valor medido (850 horas) es significativamente menor que el valor objetivo (1000 horas), se debe tomar una acción correctiva. Rechazar el producto (o el módulo) y requerir trabajo de mejora (rework) es la acción apropiada para intentar alcanzar el nivel de fiabilidad requerido para un módulo *crítico* de control industrial.";
+                 } else {
+                     isCorrect = false;
+                     let explanation = `Incorrecto. El requisito de MTBF (>= 1000 horas) no se cumple, ya que el valor medido es 850 horas. `;
+                     switch(selectedDecision) {
+                         case 'accept':
+                             explanation += `Aceptar el producto no es adecuado si no cumple un requisito crítico, especialmente para sistemas industriales donde la fiabilidad es vital.`;
+                             break;
+                         case 'reevaluate_metrics':
+                             explanation += `Aunque la revisión de métricas es parte del proceso, la discrepancia es significativa. La acción prioritaria es abordar el problema de fiabilidad en el software, no asumir que la métrica está mal definida.`;
+                             break;
+                         case 'deploy':
+                             explanation += `Desplegar un módulo crítico que no cumple el requisito de fiabilidad establecido es una práctica de alto riesgo y contraria a los principios de ISO 25000.`;
+                             break;
+                         default:
+                             explanation += `La acción más adecuada es requerir trabajo de mejora (rework) para aumentar el MTBF y cumplir el requisito.`;
+                     }
+                     message = explanation;
+                 }
+                 displayFeedback(feedbackDiv, isCorrect, message);
+            }
+        }
+
+        // Show the first module on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            showModule('module1');
+        });
+
+    </script>
+
+</body>
+</html>
