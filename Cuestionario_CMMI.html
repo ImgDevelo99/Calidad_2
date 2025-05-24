@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuestionario CMMI - Centro de Servicios y Gestión Empresarial</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            padding-top: 60px; /* Adjust for fixed header */
+        }
+        .header-bar {
+            background-color: #d4edda; /* Light green from Bootstrap success */
+            color: #155724; /* Dark green text */
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .header-bar img {
+            height: 40px; /* Adjust height as needed */
+            margin-right: 15px;
+        }
+        .header-bar h1 {
+            font-size: 1.5em;
+            margin: 0;
+            color: #155724; /* Ensure text color matches */
+        }
+        .quiz-container {
+            margin-top: 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.05);
+        }
+        .question-area {
+            margin-bottom: 20px;
+        }
+        .options label {
+            display: block;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .options label:hover {
+            background-color: #e9ecef;
+        }
+        .options input[type="radio"] {
+            margin-right: 10px;
+        }
+        .feedback {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            display: none; /* Hidden by default */
+        }
+        .feedback.correct {
+            background-color: #d4edda;
+            color: #155724;
+            border-color: #c3e6cb;
+        }
+        .feedback.incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-color: #f5c6cb;
+        }
+        .navigation-buttons {
+            margin-top: 20px;
+            text-align: right;
+        }
+        .results-area {
+            text-align: center;
+            display: none; /* Hidden by default */
+        }
+        .results-area h2 {
+            margin-bottom: 20px;
+        }
+        .btn-submit {
+            width: 100%; /* Make submit button full width */
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-bar">
+        <img src="https://i.post.cc/mZzx20gW/Logosimbolo-SENA-PRINCIPAL.png" alt="Logo SENA">
+        <h1>Centro de Servicios y Gestión Empresarial</h1>
+    </div>
+
+    <div class="container quiz-container">
+        <h2 class="text-center mb-4">Cuestionario: Modelos de Calidad de Software (CMMI)</h2>
+
+        <div id="quizArea">
+            <div class="question-area">
+                <h5 id="questionText" class="mb-4">Cargando pregunta...</h5>
+                <div id="options" class="options">
+                    <!-- Options will be loaded here by JavaScript -->
+                </div>
+            </div>
+
+            <button id="submitAnswerBtn" class="btn btn-primary btn-submit">Enviar Respuesta</button>
+
+            <div id="feedbackArea" class="feedback">
+                <p id="feedbackText"></p>
+            </div>
+
+            <div class="navigation-buttons">
+                <button id="nextQuestionBtn" class="btn btn-success" style="display: none;">Siguiente Pregunta</button>
+            </div>
+        </div>
+
+        <div id="resultsArea" class="results-area">
+            <h2>Cuestionario Completado</h2>
+            <p id="scoreText"></p>
+        </div>
+
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const questions = [
+            {
+                question: "¿Qué significa la sigla CMMI?",
+                options: [
+                    "Capability Maturity Measurement Initiative",
+                    "Control Model Management Information",
+                    "Capability Maturity Model Integration",
+                    "Continuous Management Measurement Improvement"
+                ],
+                correctAnswerIndex: 2,
+                feedbackCorrect: "¡Correcto! CMMI significa Capability Maturity Model Integration y es un modelo de mejora de procesos.",
+                feedbackIncorrect: "Incorrecto. CMMI significa Capability Maturity Model Integration. Es un modelo para mejorar la capacidad de desarrollo y mantenimiento de software."
+            },
+            {
+                question: "¿Cuántos niveles de madurez definidos tiene la representación por Etapas (Staged Representation) de CMMI?",
+                options: [
+                    "3",
+                    "4",
+                    "5",
+                    "6"
+                ],
+                correctAnswerIndex: 2,
+                feedbackCorrect: "¡Correcto! La representación por Etapas de CMMI define 5 niveles de madurez, desde el Inicial (Nivel 1) hasta el Optimizado (Nivel 5).",
+                feedbackIncorrect: "Incorrecto. La representación por Etapas de CMMI define 5 niveles de madurez: Inicial, Gestionado, Definido, Cuantitativamente Gestionado y Optimizado."
+            },
+            {
+                question: "¿Cuál es el nivel de madurez de CMMI donde los procesos son impredecibles, poco controlados y reactivos?",
+                options: [
+                    "Nivel 1 - Inicial",
+                    "Nivel 2 - Gestionado",
+                    "Nivel 3 - Definido",
+                    "Nivel 4 - Cuantitativamente Gestionado"
+                ],
+                correctAnswerIndex: 0,
+                feedbackCorrect: "¡Correcto! El Nivel 1 - Inicial se caracteriza por procesos caóticos o ad hoc, donde el éxito a menudo depende del heroísmo individual.",
+                feedbackIncorrect: "Incorrecto. El Nivel 1 - Inicial es el nivel donde los procesos son impredecibles y poco controlados."
+            },
+            {
+                question: "¿En qué nivel de madurez de CMMI se establecen procesos estandarizados, proactivos y la organización tiene una comprensión de su rendimiento?",
+                options: [
+                    "Nivel 2 - Gestionado",
+                    "Nivel 3 - Definido",
+                    "Nivel 4 - Cuantitativamente Gestionado",
+                    "Nivel 5 - Optimizado"
+                ],
+                correctAnswerIndex: 1,
+                feedbackCorrect: "¡Correcto! El Nivel 3 - Definido se caracteriza por procesos documentados, estandarizados e integrados en toda la organización.",
+                feedbackIncorrect: "Incorrecto. En el Nivel 3 - Definido, los procesos están documentados y estandarizados a nivel organizacional."
+            },
+            {
+                question: "¿Cuál es el propósito principal del Nivel 2 - Gestionado en CMMI?",
+                options: [
+                    "Mejorar continuamente los procesos",
+                    "Establecer una base para la gestión del proyecto",
+                    "Gestionar el rendimiento del proceso usando técnicas estadísticas",
+                    "Establecer procesos definidos a nivel organizacional"
+                ],
+                correctAnswerIndex: 1,
+                feedbackCorrect: "¡Correcto! El Nivel 2 se enfoca en gestionar los proyectos individuales, asegurando que los requisitos, el trabajo y los productos sean gestionados.",
+                feedbackIncorrect: "Incorrecto. El Nivel 2 - Gestionado se centra en gestionar proyectos individuales de manera planificada y rastreada."
+            },
+            {
+                question: "¿Qué representación de CMMI permite a una organización elegir las áreas de proceso a mejorar que mejor se alinean con sus objetivos de negocio?",
+                options: [
+                    "Representación por Etapas (Staged)",
+                    "Representación Continua (Continuous)",
+                    "Ambas representaciones",
+                    "Ninguna de las anteriores"
+                ],
+                correctAnswerIndex: 1,
+                feedbackCorrect: "¡Correcto! La Representación Continua permite a una organización lograr distintos 'niveles de capacidad' para diferentes áreas de proceso, enfocándose en la mejora en áreas específicas de interés.",
+                feedbackIncorrect: "Incorrecto. La Representación Continua es la que permite a una organización priorizar la mejora en áreas de proceso específicas."
+            },
+            {
+                question: "¿Cuál de las siguientes NO es un área de proceso común en CMMI?",
+                options: [
+                    "Gestión de Requisitos (Requirements Management)",
+                    "Planificación de Proyectos (Project Planning)",
+                    "Gestión de Recursos Humanos (Human Resource Management)",
+                    "Aseguramiento de la Calidad del Proceso y Producto (Process and Product Quality Assurance)"
+                ],
+                correctAnswerIndex: 2,
+                feedbackCorrect: "¡Correcto! Gestión de Recursos Humanos no es un área de proceso estándar directamente definida dentro de CMMI v1.3 o v2.0. CMMI se enfoca más en procesos de desarrollo y gestión del trabajo.",
+                feedbackIncorrect: "Incorrecto. Gestión de Recursos Humanos no es un área de proceso principal en CMMI. Las otras opciones sí lo son."
+            },
+            {
+                question: "¿Qué es un Objetivo Específico (Specific Goal) en CMMI?",
+                options: [
+                    "Un requisito de negocio de alto nivel",
+                    "Un resultado esperado de un área de proceso",
+                    "Una métrica utilizada para medir el rendimiento",
+                    "Una práctica genérica aplicable a todas las áreas de proceso"
+                ],
+                correctAnswerIndex: 1,
+                feedbackCorrect: "¡Correcto! Los Objetivos Específicos describen los resultados esperados que deben lograrse para satisfacer un área de proceso. Son 'lo que' debe lograr el área de proceso.",
+                feedbackIncorrect: "Incorrecto. Un Objetivo Específico es un resultado que un área de proceso debe lograr."
+            },
+            {
+                question: "¿Qué es una Práctica Genérica (Generic Practice) en CMMI?",
+                options: [
+                    "Una actividad fundamental para implementar un Objetivo Específico",
+                    "Una práctica que soporta la institucionalización de procesos a través de varias áreas de proceso",
+                    "Un objetivo de negocio que guía la mejora",
+                    "Una técnica específica para medir la calidad del software"
+                ],
+                correctAnswerIndex: 1,
+                feedbackCorrect: "¡Correcto! Las Prácticas Genéricas (vinculadas a Objetivos Genéricos) describen actividades que contribuyen a la institucionalización de los procesos, asegurando que las prácticas sean repetibles, gestionadas y mejoradas.",
+                feedbackIncorrect: "Incorrecto. Las Prácticas Genéricas (y Objetivos Genéricos) se relacionan con la institucionalización de procesos, haciéndolos consistentes y gestionados a nivel organizacional."
+            },
+            {
+                question: "¿Cuál es el principal beneficio de adoptar e implementar CMMI en una organización?",
+                options: [
+                    "Eliminar todos los defectos del software",
+                    "Reducir el costo de desarrollo a cero",
+                    "Mejorar la capacidad de la organización para entregar productos y servicios de calidad de manera predecible",
+                    "Automatizar completamente el proceso de desarrollo"
+                ],
+                correctAnswerIndex: 2,
+                feedbackCorrect: "¡Correcto! CMMI ayuda a las organizaciones a mejorar sus procesos para ser más predecibles, eficientes y efectivos, lo que resulta en la entrega de productos y servicios de mayor calidad de manera consistente.",
+                feedbackIncorrect: "Incorrecto. El principal beneficio de CMMI es mejorar la capacidad de la organización y la previsibilidad en la entrega de productos y servicios de calidad."
+            },
+             {
+                question: "¿Qué área de proceso de CMMI se encarga de identificar, documentar y gestionar los requisitos a lo largo del ciclo de vida del proyecto?",
+                options: [
+                    "Verificación (Verification)",
+                    "Validación (Validation)",
+                    "Gestión de Requisitos (Requirements Management)",
+                    "Desarrollo de Requisitos (Requirements Development)"
+                ],
+                correctAnswerIndex: 2,
+                feedbackCorrect: "¡Correcto! Gestión de Requisitos (Requirements Management) se enfoca en asegurar que los requisitos sean controlados y que los planes y productos del proyecto permanezcan consistentes con ellos.",
+                feedbackIncorrect: "Incorrecto. El área de proceso Gestión de Requisitos (Requirements Management) se centra en mantener la coherencia de los requisitos y su gestión a lo largo del proyecto."
+            },
+            {
+                question: "¿En qué nivel de madurez se espera que una organización utilice técnicas cuantitativas y estadísticas para gestionar el rendimiento del proceso y los resultados del producto?",
+                options: [
+                    "Nivel 2 - Gestionado",
+                    "Nivel 3 - Definido",
+                    "Nivel 4 - Cuantitativamente Gestionado",
+                    "Nivel 5 - Optimizado"
+                ],
+                correctAnswerIndex: 2,
+                feedbackCorrect: "¡Correcto! El Nivel 4 - Cuantitativamente Gestionado implica el uso de mediciones cuantitativas y análisis estadísticos para comprender y controlar el rendimiento del proceso.",
+                feedbackIncorrect: "Incorrecto. El Nivel 4 - Cuantitativamente Gestionado es donde se aplican técnicas estadísticas para gestionar el rendimiento."
+            },
+            {
+                question: "¿Cuál es el enfoque principal del Nivel 5 - Optimizado en CMMI?",
+                options: [
+                    "Gestionar proyectos individuales",
+                    "Establecer procesos definidos a nivel organizacional",
+                    "Mejorar continuamente los procesos utilizando análisis cuantitativos y de causa raíz",
+                    "Estabilizar los procesos básicos de gestión"
+                ],
+                correctAnswerIndex: 2,
+                feedbackCorrect: "¡Correcto! El Nivel 5 - Optimizado se centra en la mejora continua del rendimiento del proceso mediante innovaciones incrementales y el análisis de las causas raíz de los defectos.",
+                feedbackIncorrect: "Incorrecto. El Nivel 5 - Optimizado se dedica a la mejora continua proactiva basada en análisis cuantitativos."
+            },
+            {
+                question: "¿Qué área de proceso se asegura de que los productos de trabajo seleccionados sean consistentes entre sí y que el estado de los elementos sea conocido a lo largo del tiempo?",
+                options: [
+                    "Gestión de Requisitos",
+                    "Planificación de Proyectos",
+                    "Aseguramiento de la Calidad del Proceso y Producto",
+                    "Gestión de la Configuración (Configuration Management)"
+                ],
+                correctAnswerIndex: 3,
+                feedbackCorrect: "¡Correcto! Gestión de la Configuración se encarga de establecer y mantener la integridad de los productos de trabajo seleccionados.",
+                feedbackIncorrect: "Incorrecto. Gestión de la Configuración es el área que asegura la consistencia e integridad de los productos de trabajo."
+            },
+            {
+                question: "¿Cuál es la diferencia clave entre Objetivos Específicos (Specific Goals) y Objetivos Genéricos (Generic Goals)?",
+                options: [
+                    "Los Objetivos Específicos son obligatorios, los Genéricos son opcionales.",
+                    "Los Objetivos Específicos se aplican a un área de proceso específica, los Genéricos se aplican a la institucionalización de procesos en general.",
+                    "Los Objetivos Específicos son de alto nivel, los Genéricos son detallados.",
+                    "No hay diferencia, son términos sinónimos."
+                ],
+                correctAnswerIndex: 1,
+                feedbackCorrect: "¡Correcto! Los Objetivos Específicos se relacionan con lo que un área de proceso específica debe lograr, mientras que los Objetivos Genéricos se refieren a la institucionalización de esos procesos, es decir, cómo se integran y sostienen en la organización.",
+                feedbackIncorrect: "Incorrecto. Los Objetivos Específicos son intrínsecos a un área de proceso particular, mientras que los Genéricos se refieren a la capacidad de la organización para institucionalizar los procesos de manera sostenible."
+            },
+            {
+                question: "¿Qué área de proceso se enfoca en proporcionar visibilidad sobre la mejora del proceso de la organización y las actividades de soporte, así como en la identificación y mejora de debilidades y fortalezas del proceso?",
+                options: [
+                    "Gestión de Proyectos Integrada (Integrated Project Management)",
+                    "Enfoque Organizacional en Procesos (Organizational Process Focus)",
+                    "Definición de Procesos Organizacionales (Organizational Process Definition)",
+                    "Análisis Causal y Resolución (Causal Analysis and Resolution)"
+                ],
+                correctAnswerIndex: 1,
+                feedbackCorrect: "¡Correcto! El Enfoque Organizacional en Procesos (Organizational Process Focus) trata sobre la planificación e implementación de mejoras en los procesos organizacionales.",
+                feedbackIncorrect: "Incorrecto. El Enfoque Organizacional en Procesos (Organizational Process Focus) es el área responsable de la mejora del proceso organizacional."
+            },
+            {
+                question: "¿Cuál es la relación entre CMMI y las normas ISO (como ISO 9001)?",
+                options: [
+                    "Son modelos rivales y excluyentes.",
+                    "ISO 9001 se enfoca en el sistema de gestión de calidad general, mientras que CMMI se enfoca específicamente en la mejora de procesos de desarrollo y mantenimiento.",
+                    "CMMI es un requisito previo para implementar ISO 9001.",
+                    "Son exactamente iguales y se usan indistintamente."
+                ],
+                correctAnswerIndex: 1,
+                feedbackCorrect: "¡Correcto! Mientras que ISO 9001 proporciona requisitos para un sistema de gestión de calidad genérico aplicable a cualquier industria, CMMI proporciona una guía detallada para la mejora de procesos en organizaciones que desarrollan y mantienen productos y servicios.",
+                feedbackIncorrect: "Incorrecto. ISO 9001 es más general sobre sistemas de gestión de calidad, mientras que CMMI es específico para la mejora de procesos en la industria del software y desarrollo."
+            },
+             {
+                question: "¿Qué representa el Nivel de Capacidad (Capability Level) en la Representación Continua de CMMI?",
+                options: [
+                    "El nivel de madurez general de la organización.",
+                    "El grado de institucionalización de un área de proceso específica.",
+                    "La cantidad de proyectos completados exitosamente.",
+                    "El número de personas certificadas en CMMI."
+                ],
+                correctAnswerIndex: 1,
+                feedbackCorrect: "¡Correcto! En la Representación Continua, los Niveles de Capacidad (0-5) se aplican a áreas de proceso individuales para indicar cuán bien institucionalizadas están las prácticas para ese área.",
+                feedbackIncorrect: "Incorrecto. En la Representación Continua, los Niveles de Capacidad se aplican a áreas de proceso individuales, no a la organización completa."
+            },
+            {
+                question: "¿Cuál de las siguientes Áreas de Proceso se asocia típicamente con el Nivel 2 - Gestionado en la representación por etapas?",
+                options: [
+                    "Optimización Organizacional (Organizational Performance Management)",
+                    "Gestión de Riesgos (Risk Management)",
+                    "Integración del Producto (Product Integration)",
+                    "Aseguramiento de la Calidad del Proceso y Producto (Process and Product Quality Assurance)"
+                ],
+                correctAnswerIndex: 3,
+                feedbackCorrect: "¡Correcto! Áreas de proceso como Gestión de Requisitos, Planificación de Proyectos, Seguimiento y Control de Proyectos, Gestión de Acuerdos con Proveedores y Aseguramiento de la Calidad del Proceso y Producto son fundamentales para alcanzar el Nivel 2.",
+                feedbackIncorrect: "Incorrecto. Aseguramiento de la Calidad del Proceso y Producto es un área de proceso clave para establecer una base gestionada en el Nivel 2."
+            },
+            {
+                question: "¿Cuál es el principal resultado esperado del área de proceso Medición y Análisis (Measurement and Analysis)?",
+                options: [
+                    "Definir los requisitos del cliente.",
+                    "Establecer líneas base de configuración.",
+                    "Desarrollar un plan de proyecto detallado.",
+                    "Proporcionar soporte a la toma de decisiones mediante datos cuantitativos."
+                ],
+                correctAnswerIndex: 3,
+                feedbackCorrect: "¡Correcto! El área de proceso Medición y Análisis se enfoca en desarrollar y mantener la capacidad de medir y analizar la información para dar soporte a la gestión y la mejora.",
+                feedbackIncorrect: "Incorrecto. Medición y Análisis se trata de recopilar, analizar y usar datos para la toma de decisiones informada."
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        const questionTextElement = document.getElementById('questionText');
+        const optionsElement = document.getElementById('options');
+        const submitButton = document.getElementById('submitAnswerBtn');
+        const feedbackArea = document.getElementById('feedbackArea');
+        const feedbackTextElement = document.getElementById('feedbackText');
+        const nextButton = document.getElementById('nextQuestionBtn');
+        const quizArea = document.getElementById('quizArea');
+        const resultsArea = document.getElementById('resultsArea');
+        const scoreTextElement = document.getElementById('scoreText');
+
+        function loadQuestion() {
+            if (currentQuestionIndex < questions.length) {
+                const currentQuestion = questions[currentQuestionIndex];
+                questionTextElement.textContent = `Pregunta ${currentQuestionIndex + 1} de ${questions.length}: ${currentQuestion.question}`;
+
+                optionsElement.innerHTML = ''; // Clear previous options
+                currentQuestion.options.forEach((option, index) => {
+                    const optionHtml = `
+                        <label>
+                            <input type="radio" name="answer" value="${index}">
+                            ${option}
+                        </label>
+                    `;
+                    optionsElement.innerHTML += optionHtml;
+                });
+
+                feedbackArea.style.display = 'none';
+                feedbackArea.className = 'feedback'; // Reset classes
+                feedbackTextElement.textContent = '';
+                nextButton.style.display = 'none';
+                submitButton.style.display = 'block';
+                submitButton.disabled = false; // Enable submit button for new question
+                // Re-enable radio buttons
+                optionsElement.querySelectorAll('input[type="radio"]').forEach(radio => radio.disabled = false);
+
+            } else {
+                showResults();
+            }
+        }
+
+        function checkAnswer() {
+            const selectedOption = optionsElement.querySelector('input[name="answer"]:checked');
+
+            if (!selectedOption) {
+                alert("Por favor, selecciona una respuesta.");
+                return;
+            }
+
+            const selectedAnswerIndex = parseInt(selectedOption.value);
+            const currentQuestion = questions[currentQuestionIndex];
+
+            // Disable options and submit button after answering
+            optionsElement.querySelectorAll('input[type="radio"]').forEach(radio => radio.disabled = true);
+            submitButton.disabled = true;
+
+
+            feedbackArea.style.display = 'block';
+            if (selectedAnswerIndex === currentQuestion.correctAnswerIndex) {
+                score++;
+                feedbackArea.className = 'feedback correct';
+                feedbackTextElement.textContent = `¡Respuesta Correcta! ${currentQuestion.feedbackCorrect}`;
+            } else {
+                feedbackArea.className = 'feedback incorrect';
+                feedbackTextElement.textContent = `Respuesta Incorrecta. ${currentQuestion.feedbackIncorrect}`;
+            }
+
+            nextButton.style.display = 'block';
+            submitButton.style.display = 'none'; // Hide submit button
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            loadQuestion();
+        }
+
+        function showResults() {
+            quizArea.style.display = 'none';
+            resultsArea.style.display = 'block';
+            scoreTextElement.textContent = `Has completado el cuestionario. Tu puntuación es ${score} de ${questions.length}.`;
+        }
+
+        // Event listeners
+        submitButton.addEventListener('click', checkAnswer);
+        nextButton.addEventListener('click', nextQuestion);
+
+        // Initial load
+        loadQuestion();
+
+    </script>
+
+</body>
+</html>
