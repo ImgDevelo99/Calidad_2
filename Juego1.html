@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de Clasificación de Calidad de Software</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+
+        .header {
+            background-color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .header img {
+            height: 40px; /* Ajusta según necesidad */
+            margin-right: 15px;
+        }
+
+        .header span {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #004d40; /* Verde oscuro, asociado a SENA */
+        }
+
+        .game-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+            display: flex;
+            flex-wrap: wrap; /* Permite que los elementos se apilen en pantallas pequeñas */
+            gap: 20px;
+        }
+
+        .items-container {
+            flex: 1; /* Ocupa el espacio restante */
+            min-width: 250px; /* Mínimo ancho */
+            background-color: #e0f2f1; /* Verde claro */
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .items-container h2, .zones-container h2 {
+            color: #004d40;
+            margin-top: 0;
+            border-bottom: 2px solid #00796b; /* Verde medio */
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .item {
+            background-color: #ffffff;
+            border: 1px solid #b2dfdb; /* Borde verde sutil */
+            border-radius: 5px;
+            padding: 12px;
+            margin-bottom: 10px;
+            cursor: grab;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+            user-select: none; /* Evita seleccionar el texto al arrastrar */
+        }
+
+        .item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
+        }
+
+        .item.is-dragging {
+            opacity: 0.6;
+            transform: scale(0.95);
+        }
+
+        .zones-container {
+            flex: 2; /* Ocupa el doble de espacio */
+            min-width: 400px; /* Mínimo ancho */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Columnas responsivas */
+            gap: 20px;
+        }
+
+        .zone {
+            background-color: #ffffff;
+            border: 2px dashed #b2dfdb; /* Borde verde sutil */
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            min-height: 150px;
+            transition: border-color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+        }
+
+        .zone h3 {
+            color: #00796b;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .zone.drag-over {
+            border-color: #004d40; /* Verde oscuro al arrastrar encima */
+            background-color: #e0f7fa; /* Azul muy claro */
+        }
+
+        .zone .item {
+            cursor: default; /* No arrastrable una vez dentro */
+            margin-bottom: 8px;
+            background-color: #f1f8e9; /* Verde muy claro para items dentro de zonas */
+            border: 1px solid #c5e1a5;
+            box-shadow: none; /* Sin sombra dentro de la zona */
+            transform: none; /* Sin transformación de hover */
+        }
+
+        .item.correct {
+            background-color: #dcedc8; /* Verde claro */
+            border-color: #aed581;
+        }
+
+        .item.incorrect {
+            background-color: #ffcdd2; /* Rojo claro */
+            border-color: #ef9a9a;
+        }
+
+        .feedback {
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        #check-button {
+            display: block;
+            width: 200px;
+            margin: 30px auto;
+            padding: 15px;
+            background-color: #00796b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #check-button:hover {
+            background-color: #004d40;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <img src="https://i.postimg.cc/mZzx20gW/Logosimbolo-SENA-PRINCIPAL.png" alt="Logo SENA">
+        <span>Centro de Servicios y Gestión Empresarial</span>
+    </div>
+
+    <div class="game-container">
+        <div class="items-container">
+            <h2>Elementos a Clasificar</h2>
+            <div class="item" id="item1" draggable="true" data-category="functionality">Cumple con especificaciones</div>
+            <div class="item" id="item2" draggable="true" data-category="reliability">Manejo de errores robusto</div>
+            <div class="item" id="item3" draggable="true" data-category="usability">Interfaz intuitiva</div>
+            <div class="item" id="item4" draggable="true" data-category="performance">Tiempo de respuesta rápido</div>
+            <div class="item" id="item5" draggable="true" data-category="maintainability">Código legible y modular</div>
+            <div class="item" id="item6" draggable="true" data-category="security">Protección contra inyecciones</div>
+            <div class="item" id="item7" draggable="true" data-category="reliability">Recuperación ante fallos</div>
+            <div class="item" id="item8" draggable="true" data-category="usability">Fácil de aprender</div>
+            <div class="item" id="item9" draggable="true" data-category="performance">Uso eficiente de recursos</div>
+            <div class="item" id="item10" draggable="true" data-category="maintainability">Buena documentación</div>
+            <div class="item" id="item11" draggable="true" data-category="security">Control de acceso de usuarios</div>
+            <div class="item" id="item12" draggable="true" data-category="functionality">Validación de datos de entrada</div>
+        </div>
+
+        <div class="zones-container">
+            <div class="zone" id="functionality">
+                <h3>Funcionalidad</h3>
+                <!-- Items will be dropped here -->
+            </div>
+            <div class="zone" id="reliability">
+                <h3>Fiabilidad</h3>
+                <!-- Items will be dropped here -->
+            </div>
+            <div class="zone" id="usability">
+                <h3>Usabilidad</h3>
+                <!-- Items will be dropped here -->
+            </div>
+            <div class="zone" id="performance">
+                <h3>Rendimiento</h3>
+                <!-- Items will be dropped here -->
+            </div>
+            <div class="zone" id="maintainability">
+                <h3>Mantenibilidad</h3>
+                <!-- Items will be dropped here -->
+            </div>
+            <div class="zone" id="security">
+                <h3>Seguridad</h3>
+                <!-- Items will be dropped here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- <button id="check-button">Verificar Clasificación</button> -->
+    <!-- Optional: Add a feedback message area -->
+    <!-- <div class="feedback" id="game-feedback"></div> -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const items = document.querySelectorAll('.item');
+            const zones = document.querySelectorAll('.zone');
+            let draggedItem = null;
+
+            // Add dragstart listener to each item
+            items.forEach(item => {
+                item.addEventListener('dragstart', (e) => {
+                    draggedItem = item;
+                    e.dataTransfer.setData('text/plain', item.id); // Store the item's ID
+                    item.classList.add('is-dragging');
+                    console.log('Drag started:', item.id);
+                });
+
+                item.addEventListener('dragend', () => {
+                    // Clean up dragging class after drag finishes (whether dropped or not)
+                    if (draggedItem) {
+                         draggedItem.classList.remove('is-dragging');
+                         draggedItem = null;
+                    }
+                     console.log('Drag ended');
+                });
+            });
+
+            // Add dragover, dragleave, and drop listeners to each zone
+            zones.forEach(zone => {
+                zone.addEventListener('dragover', (e) => {
+                    e.preventDefault(); // Necessary to allow dropping
+                    zone.classList.add('drag-over');
+                   // console.log('Drag over zone:', zone.id);
+                });
+
+                zone.addEventListener('dragleave', () => {
+                    zone.classList.remove('drag-over');
+                    //console.log('Drag left zone:', zone.id);
+                });
+
+                zone.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    zone.classList.remove('drag-over');
+
+                    const itemId = e.dataTransfer.getData('text/plain');
+                    const item = document.getElementById(itemId);
+                    const correctCategory = item.dataset.category; // Get correct category from data attribute
+                    const targetZoneId = zone.id; // Get ID of the zone being dropped into
+
+                    console.log(`Dropped item ${itemId} (Correct: ${correctCategory}) into zone ${targetZoneId}`);
+
+                    // Append the item to the drop zone
+                    zone.appendChild(item);
+
+                    // Add feedback class based on correctness
+                    if (correctCategory === targetZoneId) {
+                        item.classList.add('correct');
+                        item.classList.remove('incorrect');
+                         console.log('Correct placement!');
+                         // Optional: Make item no longer draggable if correct
+                         item.draggable = false;
+                         item.style.cursor = 'default';
+                    } else {
+                        item.classList.add('incorrect');
+                        item.classList.remove('correct');
+                         console.log('Incorrect placement!');
+                         // Keep item draggable if incorrect? Or allow moving?
+                         // For simplicity, let's allow moving by keeping draggable true,
+                         // but the class remains until moved again.
+                         item.draggable = true; // Ensure it's still draggable if wrong
+                         item.style.cursor = 'grab';
+                    }
+
+                     // Clean up dragging class
+                     item.classList.remove('is-dragging');
+                     draggedItem = null;
+                });
+            });
+
+            // Optional: Add a check button logic if needed later
+            // const checkButton = document.getElementById('check-button');
+            // checkButton.addEventListener('click', () => {
+            //     let correctCount = 0;
+            //     const totalItems = items.length;
+            //     items.forEach(item => {
+            //         // Check if item is placed and in correct zone
+            //         if (item.parentElement && item.parentElement.classList.contains('zone')) {
+            //             const correctCategory = item.dataset.category;
+            //             const currentZoneId = item.parentElement.id;
+            //             if (correctCategory === currentZoneId) {
+            //                 correctCount++;
+            //                 item.classList.add('correct');
+            //                 item.classList.remove('incorrect');
+            //             } else {
+            //                  item.classList.add('incorrect');
+            //                 item.classList.remove('correct');
+            //             }
+            //         } else {
+            //              // Item is still in the initial container - mark incorrect placement visually
+            //              item.classList.add('incorrect');
+            //              item.classList.remove('correct');
+            //         }
+            //     });
+            //     const feedbackDiv = document.getElementById('game-feedback');
+            //     feedbackDiv.textContent = `Has clasificado correctamente ${correctCount} de ${totalItems} elementos.`;
+            // });
+
+        });
+    </script>
+
+</body>
+</html>
