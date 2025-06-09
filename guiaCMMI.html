@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía CMMI - Nivel Básico</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding-top: 60px; /* Space for the fixed header */
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-color: #fff;
+            color: #333;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+        header img {
+            height: 40px; /* Adjust as needed */
+            margin-right: 15px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #00457C; /* SENA blue */
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        .step {
+            display: none; /* Hide all steps by default */
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .step:first-child {
+            display: block; /* Show the first step */
+        }
+        .step h2 {
+            color: #0056b3;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        .step h3 {
+            color: #007bff;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        .visual-demo {
+            background-color: #e9e9e9;
+            padding: 15px;
+            border-left: 4px solid #007bff;
+            margin: 15px 0;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap; /* Respect line breaks in visual demos */
+            overflow-x: auto; /* Add scroll for wide text diagrams */
+        }
+        .exercise {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border: 1px dashed #007bff;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .exercise label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        .exercise input[type="text"],
+        .exercise select {
+            width: calc(100% - 22px); /* Adjust for padding/border */
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .exercise button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+        .exercise button:hover {
+            background-color: #218838;
+        }
+        .feedback {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .feedback.correct {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .feedback.incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .navigation {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .navigation button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            margin: 0 10px;
+            transition: background-color 0.3s ease;
+        }
+        .navigation button:hover {
+            background-color: #0056b3;
+        }
+        .navigation button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            color: #555;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="https://i.postimg.cc/mZzx20gW/Logosimbolo-SENA-PRINCIPAL.png" alt="Logo SENA">
+        <h1>Centro de Servicios y Gestión Empresarial</h1>
+    </header>
+
+    <div class="container">
+
+        <!-- Steps will be added here dynamically or kept as hidden divs -->
+        <div id="step-0" class="step">
+            <h2>Paso 1: Introducción a CMMI</h2>
+            <p>¡Bienvenido a esta guía básica sobre CMMI! Aquí aprenderás qué es este modelo, por qué es importante en el desarrollo de software y cómo las organizaciones lo utilizan para mejorar.</p>
+
+            <h3>¿Qué es CMMI?</h3>
+            <p>CMMI significa <strong>Capability Maturity Model Integration</strong> (Integración de Modelos de Madurez de Capacidades).</p>
+            <p>Piensa en CMMI como una "receta" o un "mapa" que ayuda a las organizaciones, especialmente las de desarrollo de software, a mejorar cómo hacen su trabajo. No es una metodología rígida, sino un marco de referencia que describe las prácticas clave que una organización debería tener para ser más eficaz y predecible.</p>
+
+            <h3>Propósito de CMMI</h3>
+            <p>El propósito principal de CMMI es ayudar a las organizaciones a mejorar su desempeño. Se enfoca en:
+            <ul>
+                <li><strong>Mejorar la Calidad:</strong> Reducir defectos en productos y servicios.</li>
+                <li><strong>Aumentar la Predictibilidad:</strong> Entregar proyectos a tiempo y dentro del presupuesto.</li>
+                <li><strong>Mejorar la Eficiencia:</strong> Optimizar el uso de recursos.</li>
+                <li><strong>Gestionar Riesgos:</strong> Identificar y mitigar problemas potenciales antes de que ocurran.</li>
+            </ul>
+            En resumen, busca transformar una forma de trabajo caótica o impredecible en una forma más organizada, eficiente y confiable.</p>
+
+            <h3>Demostración Visual (Conceptual):</h3>
+            <p>Imagina que tu organización es como un taller de carpintería. Sin CMMI, cada carpintero trabaja a su manera (caos). Con CMMI, defines cómo se deben cortar las piezas, cómo unirlas, cómo revisar la calidad, etc., para que todos trabajen de forma similar y el resultado sea consistente.</p>
+            <div class="visual-demo">
+Antes CMMI:
+Carpintero A -> Silla (Buena, Rápida)
+Carpintero B -> Silla (Regular, Lenta)
+Carpintero C -> Mesa (Mala, Tarde)
+- Resultados inconsistentes -
+
+Con CMMI:
+Reglas/Procesos Estándar:
+- Cómo cortar madera
+- Cómo ensamblar
+- Revisión Calidad
+- Entrega
+
+Carpintero A -> Silla (Buena, A tiempo)
+Carpintero B -> Silla (Buena, A tiempo)
+Carpintero C -> Mesa (Buena, A tiempo)
+- Resultados consistentes y predecibles -
+            </div>
+
+            <div class="exercise">
+                <h3>Ejercicio 1.1: Concepto de CMMI</h3>
+                <p>Según lo visto, ¿Cuál es el objetivo principal de CMMI en una organización de desarrollo de software?</p>
+                <input type="text" id="ejercicio1-1-input" placeholder="Escribe tu respuesta aquí">
+                <button onclick="checkExercise('ejercicio1-1')">Verificar Respuesta</button>
+                <div id="ejercicio1-1-feedback" class="feedback"></div>
+            </div>
+        </div>
+
+        <div id="step-1" class="step">
+            <h2>Paso 2: Beneficios y Aplicación de CMMI</h2>
+            <p>Ahora que sabes qué es CMMI y su propósito, exploremos los beneficios que trae a las organizaciones y cómo se aplica.</p>
+
+            <h3>Beneficios Clave en Organizaciones de Desarrollo de Software:</h3>
+            <ul>
+                <li><strong>Mayor Satisfacción del Cliente:</strong> Al entregar productos de mayor calidad y de forma más predecible.</li>
+                <li><strong>Reducción de Costos:</strong> Menos retrabajo debido a errores, uso más eficiente de recursos.</li>
+                <li><strong>Mejora en la Gestión de Proyectos:</strong> Mayor visibilidad y control sobre el progreso.</li>
+                <li><strong>Aumento de la Moral del Equipo:</strong> Procesos claros reducen la frustración y el caos.</li>
+                <li><strong>Ventaja Competitiva:</strong> Demuestra a los clientes la capacidad de entregar consistentemente buenos resultados.</li>
+                <li><strong>Mejor Gestión del Conocimiento:</strong> Los procesos documentados retienen el conocimiento organizacional.</li>
+            </ul>
+
+            <h3>¿Cómo se Aplica CMMI?</h3>
+            <p>La aplicación de CMMI típicamente involucra:</p>
+            <ol>
+                <li><strong>Evaluación (Appraisal):</strong> Una organización es evaluada por evaluadores certificados para determinar su nivel actual de madurez según CMMI. La evaluación más común es el método SCAMPI (Standard CMMI Appraisal Method for Process Improvement).</li>
+                <li><strong>Definición de Procesos:</strong> Basado en la evaluación, se identifican áreas de mejora. Se definen, documentan y estandarizan los procesos clave.</li>
+                <li><strong>Implementación:</strong> Se capacita al personal en los nuevos procesos y se comienzan a aplicar en los proyectos.</li>
+                <li><strong>Medición y Mejora:</strong> Se mide el desempeño de los procesos y se buscan continuamente formas de optimizarlos.</li>
+            </ol>
+
+            <h3>Demostración Visual (Proceso de Mejora):</h3>
+             <div class="visual-demo">
+Ciclo de Mejora con CMMI:
+
+[Organización sin CMMI]
+        |
+        v
+[Evaluación CMMI SCAMPI] -> Identifica Nivel Actual + Áreas de Mejora
+        |
+        v
+[Definición de Procesos] -> Documentar Cómo Hacemos las Cosas Bien
+        |
+        v
+[Implementación y Entrenamiento] -> Usar los Procesos Definidos
+        |
+        v
+[Medición y Monitoreo] -> ¿Funciona el Proceso?
+        |
+        v
+[Nueva Evaluación (Opcional)] -> Verificar Nivel Alcanzado
+        |
+        v (Continua Mejora)
+[Optimización/Ajuste de Procesos]
+            </div>
+
+            <div class="exercise">
+                <h3>Ejercicio 2.1: Beneficios de CMMI</h3>
+                <p>Selecciona dos beneficios clave que una organización de desarrollo de software puede obtener al adoptar CMMI:</p>
+                <label><input type="checkbox" name="beneficio-cmmi" value="a"> Reducción de costos</label><br>
+                <label><input type="checkbox" name="beneficio-cmmi" value="b"> Aumento del caos</label><br>
+                <label><input type="checkbox" name="beneficio-cmmi" value="c"> Mayor predictibilidad en los proyectos</label><br>
+                <label><input type="checkbox" name="beneficio-cmmi" value="d"> Ignorar las necesidades del cliente</label><br>
+                <button onclick="checkExercise('ejercicio2-1')">Verificar Respuesta</button>
+                <div id="ejercicio2-1-feedback" class="feedback"></div>
+            </div>
+        </div>
+
+        <div id="step-2" class="step">
+            <h2>Paso 3: Niveles de Madurez de CMMI - Introducción</h2>
+            <p>CMMI utiliza el concepto de "Niveles de Madurez" para describir qué tan bien una organización ha establecido y mejorado sus procesos. Existen 5 niveles, y cada nivel superior indica una mayor capacidad y madurez organizacional.</p>
+
+            <h3>El Modelo de Niveles de Madurez</h3>
+            <p>Los niveles se basan en una escala que va desde una organización con procesos impredecibles y reactivos (Nivel 1) hasta una organización que se enfoca en la mejora continua y la optimización (Nivel 5). Para alcanzar un nivel, la organización debe satisfacer los objetivos y las prácticas de las Áreas de Proceso específicas asociadas con ese nivel Y todos los niveles inferiores.</p>
+
+            <ul>
+                <li><strong>Nivel 1: Inicial</strong> - Caótico, impredecible.</li>
+                <li><strong>Nivel 2: Gestionado</strong> - Los proyectos son gestionados (planificados, controlados).</li>
+                <li><strong>Nivel 3: Definido</strong> - Los procesos son estandarizados a nivel organizacional.</li>
+                <li><strong>Nivel 4: Gestionado Cuantitativamente</strong> - Los procesos son medidos y controlados usando datos.</li>
+                <li><strong>Nivel 5: Optimizado</strong> - Mejora continua basada en datos y análisis de causas raíz.</li>
+            </ul>
+            <p>Piensa en estos niveles como pasos en una escalera hacia la excelencia en los procesos.</p>
+
+            <h3>Demostración Visual (Escalera de Madurez):</h3>
+            <div class="visual-demo">
+Nivel 5: Optimizado (Mejora Continua)
+         ^
+         |  Procesos Predecibles y Mejorando
+         |
+Nivel 4: Gestionado Cuantitativamente (Medición y Control)
+         ^
+         |  Procesos Estandarizados en la Org
+         |
+Nivel 3: Definido (Estandarización Organizacional)
+         ^
+         |  Gestión de Proyectos Básica
+         |
+Nivel 2: Gestionado (Gestión por Proyecto)
+         ^
+         |  Caos, Dependencia de Héroes
+         |
+Nivel 1: Inicial (Impredecible)
+            </div>
+
+             <div class="exercise">
+                <h3>Ejercicio 3.1: Orden de los Niveles</h3>
+                <p>Los niveles de madurez CMMI se ordenan de menor a mayor madurez. ¿Cuál es el nivel más bajo y cuál es el más alto?</p>
+                <p>Nivel más bajo: <input type="text" id="ejercicio3-1-low-input" placeholder="Nivel"></p>
+                 <p>Nivel más alto: <input type="text" id="ejercicio3-1-high-input" placeholder="Nivel"></p>
+                <button onclick="checkExercise('ejercicio3-1')">Verificar Respuesta</button>
+                <div id="ejercicio3-1-feedback" class="feedback"></div>
+            </div>
+        </div>
+
+        <div id="step-3" class="step">
+            <h2>Paso 4: Nivel 1 - Inicial</h2>
+            <p>Este es el punto de partida. Muchas organizaciones comienzan aquí.</p>
+
+            <h3>Características del Nivel 1:</h3>
+            <ul>
+                <li><strong>Caótico y Ad Hoc:</strong> No hay procesos definidos o seguidos consistentemente. El trabajo se hace "como salga" o "como sepa cada quien".</li>
+                <li><strong>Impredecible:</strong> El éxito de un proyecto depende en gran medida de la capacidad y esfuerzo individual de las personas (los "héroes"). Es difícil saber si un proyecto terminará a tiempo, dentro del presupuesto y con la calidad esperada.</li>
+                <li><strong>Reactivo:</strong> La organización reacciona a los problemas a medida que surgen, en lugar de prevenirlos.</li>
+                <li><strong>Sobrecarga y Crisis:</strong> Es común experimentar crisis y exigir esfuerzos extraordinarios para cumplir con los plazos.</li>
+            </ul>
+
+            <h3>Objetivo Clave:</h3>
+            <p>Reconocer la necesidad de mejorar los procesos para salir del caos.</p>
+
+            <h3>Prácticas Clave:</h3>
+            <p>En el Nivel 1, <strong>no hay áreas de proceso CMMI específicas que se deban cumplir formalmente</strong>. El nivel 1 describe la situación donde las áreas de proceso de niveles superiores simplemente no existen o no se aplican de forma efectiva.</p>
+
+            <h3>Ejemplo Práctico:</h3>
+            <p>Un pequeño equipo de software donde la codificación comienza tan pronto como llega una idea. No hay un plan formal, ni seguimiento de requisitos, ni control de versiones riguroso, ni pruebas estructuradas. Si un cliente pide un cambio, se implementa rápidamente sin evaluar su impacto o documentarlo. Si surge un error crítico, todo el equipo entra en pánico para solucionarlo.</p>
+
+             <h3>Demostración Visual (Caos):</h3>
+            <div class="visual-demo">
+Idea -> Codificar -> ??? -> Cliente
+            (Sin Plan)  (Errores) (Problemas)
+              |
+             \/
+           * Fuego *
+           * Héroe *
+           * Pánico *
+            </div>
+
+             <div class="exercise">
+                <h3>Ejercicio 4.1: Identificando el Nivel 1</h3>
+                <p>Un equipo de desarrollo de software rara vez entrega sus proyectos a tiempo. La calidad varía mucho entre proyectos, y el éxito a menudo depende de que un desarrollador clave trabaje horas extras para solucionar problemas de último minuto. ¿A qué nivel de madurez CMMI se parece más esta descripción?</p>
+                <select id="ejercicio4-1-select">
+                    <option value="">Seleccionar Nivel</option>
+                    <option value="1">Nivel 1</option>
+                    <option value="2">Nivel 2</option>
+                    <option value="3">Nivel 3</option>
+                    <option value="4">Nivel 4</option>
+                    <option value="5">Nivel 5</option>
+                </select>
+                <button onclick="checkExercise('ejercicio4-1')">Verificar Respuesta</button>
+                <div id="ejercicio4-1-feedback" class="feedback"></div>
+            </div>
+        </div>
+
+         <div id="step-4" class="step">
+            <h2>Paso 5: Nivel 2 - Gestionado</h2>
+            <p>En el Nivel 2, las cosas empiezan a organizarse, pero a nivel de proyecto individual.</p>
+
+            <h3>Características del Nivel 2:</h3>
+            <ul>
+                <li><strong>Gestionado por Proyecto:</strong> Los proyectos se planean, ejecutan, miden y controlan. Hay procesos establecidos, pero se aplican específicamente para proyectos individuales.</li>
+                <li><strong>Predecible en Proyectos Específicos:</strong> Con una buena gestión de proyecto, los resultados pueden ser más predecibles *para ese proyecto en particular*.</li>
+                <li><strong>Prácticas Básicas de Gestión:</strong> Se comienzan a implementar prácticas como la gestión de requisitos, planificación del proyecto, seguimiento, control de configuración, etc.</li>
+                <li><strong>Aún puede ser Inconsistente entre Proyectos:</strong> Cada proyecto puede establecer sus propios procesos, lo que lleva a inconsistencias si no hay coordinación organizacional.</li>
+            </ul>
+
+            <h3>Objetivo Clave:</h3>
+            <p>Establecer prácticas básicas de gestión de proyectos para que los proyectos se puedan planificar y controlar.</p>
+
+            <h3>Prácticas Clave (Áreas de Proceso Representativas):</h3>
+            <p>Para alcanzar el Nivel 2, una organización debe satisfacer los objetivos genéricos y específicos de áreas de proceso como:</p>
+            <ul>
+                <li><strong>Gestión de Requisitos (REQM):</strong> Asegurar que los requisitos del producto son entendidos y gestionados.</li>
+                <li><strong>Planificación del Proyecto (PP):</strong> Establecer planes de proyecto (alcance, esfuerzo, cronograma, recursos).</li>
+                <li><strong>Seguimiento y Control del Proyecto (PMC):</strong> Monitorizar el progreso real frente al plan y tomar acciones correctivas.</li>
+                 <li><strong>Gestión de la Configuración (CM):</strong> Establecer y mantener la integridad de los productos de trabajo (código, documentos, etc.).</li>
+                 <li><strong>Garantía de Calidad del Proceso y Producto (PPQA):</strong> Asegurar que los procesos del proyecto se siguen y los productos cumplen los estándares.</li>
+            </ul>
+
+            <h3>Ejemplo Práctico:</h3>
+            <p>El equipo ahora tiene un documento de requisitos que se revisa y actualiza. Se crea un plan básico del proyecto con tareas y fechas. Utilizan un sistema de control de versiones como Git de forma consistente. Realizan reuniones de seguimiento semanales para ver el progreso. Sin embargo, cada equipo de proyecto decide exactamente *cómo* hacer estas cosas, y puede variar de un proyecto a otro.</p>
+
+            <h3>Demostración Visual (Gestión Básica):</h3>
+            <div class="visual-demo">
+Proyecto A:   Reqs -> Plan -> Codificar -> Test -> Entregar
+                  (Gestionado) (Controlado)
+Proyecto B:   Reqs -> Plan -> Codificar -> Test -> Entregar
+                  (Gestionado) (Controlado)
+
+- Gestión *dentro* de cada proyecto -
+- Puede haber *variación* entre Proyectos A y B -
+            </div>
+
+            <div class="exercise">
+                <h3>Ejercicio 5.1: Características del Nivel 2</h3>
+                <p>¿Cuál de las siguientes afirmaciones describe mejor una característica clave del Nivel 2 de CMMI?</p>
+                <label><input type="radio" name="ejercicio5-1" value="a"> Los procesos son caóticos y dependen de héroes.</label><br>
+                <label><input type="radio" name="ejercicio5-1" value="b"> Hay procesos estandarizados aplicados en toda la organización.</label><br>
+                <label><input type="radio" name="ejercicio5-1" value="c"> Los proyectos individuales se planifican y controlan, aunque pueda haber variación entre proyectos.</label><br>
+                <label><input type="radio" name="ejercicio5-1" value="d"> Los procesos se gestionan usando técnicas estadísticas avanzadas.</label><br>
+                <button onclick="checkExercise('ejercicio5-1')">Verificar Respuesta</button>
+                <div id="ejercicio5-1-feedback" class="feedback"></div>
+            </div>
+        </div>
+
+        <div id="step-5" class="step">
+            <h2>Paso 6: Nivel 3 - Definido</h2>
+            <p>En el Nivel 3, la organización da un gran paso al estandarizar sus procesos a nivel organizacional.</p>
+
+            <h3>Características del Nivel 3:</h3>
+            <ul>
+                <li><strong>Procesos Estandarizados a Nivel Organizacional:</strong> Existe un conjunto de procesos estándar (una "biblioteca" de procesos) que toda la organización utiliza.</li>
+                <li><strong>Tailoring (Adaptación):</strong> Los proyectos adaptan los procesos estándar organizacionales a sus necesidades específicas, pero siempre dentro de unas guías establecidas por la organización.</li>
+                <li><strong>Proactivo:</strong> Se establecen procesos para prevenir problemas comunes en lugar de solo reaccionar a ellos.</li>
+                <li><strong>Formación (Training):</strong> Se proporciona formación al personal para que entiendan y apliquen los procesos estándar.</li>
+                <li><strong>Coherencia:</strong> Hay una mayor coherencia en cómo se hacen las cosas a lo largo de diferentes proyectos y equipos.</li>
+            </ul>
+
+            <h3>Objetivo Clave:</h3>
+            <p>Establecer un conjunto de procesos estándar para toda la organización y asegurar que los proyectos los utilizan de forma adaptada.</p>
+
+            <h3>Prácticas Clave (Áreas de Proceso Representativas):</h3>
+            <p>Además de cumplir con los requisitos del Nivel 2, el Nivel 3 añade áreas de proceso enfocadas en la estandarización y la ingeniería:</p>
+             <ul>
+                <li><strong>Enfoque de Procesos Organizacionales (OPF):</strong> Establecer y mantener el entendimiento de los procesos a nivel organizacional.</li>
+                <li><strong>Definición de Procesos Organizacionales (OPD):</strong> Establecer y mantener un conjunto de procesos estándar para la organización.</li>
+                <li><strong>Formación Organizacional (OT):</strong> Desarrollar las habilidades y conocimiento del personal para desempeñar sus roles y aplicar los procesos.</li>
+                 <li><strong>Gestión Integrada de Proyectos (IPM):</strong> Gestionar el proyecto y la participación de las partes interesadas de acuerdo con un proceso definido adaptado del conjunto estándar.</li>
+                 <li><strong>Gestión de Riesgos (RSKM):</strong> Identificar, analizar y mitigar los riesgos.</li>
+                 <li><strong>Desarrollo de Requisitos (RD):</strong> Transformar las necesidades, expectativas y limitaciones de las partes interesadas en requisitos del producto.</li>
+                 <!-- Mentioning key engineering areas is good for a basic guide -->
+                  <li>Otras áreas incluyen Solución Técnica, Integración de Producto, Verificación, Validación.</li>
+            </ul>
+
+            <h3>Ejemplo Práctico:</h3>
+            <p>La organización ha creado un portal interno (una wiki o sistema de gestión de procesos) donde están documentados los procedimientos estándar para la gestión de requisitos, el ciclo de vida de desarrollo, las pruebas, la gestión de la configuración, etc. Hay guías claras sobre cómo adaptar estos procesos a diferentes tipos de proyectos. Todos los nuevos empleados reciben formación sobre estos procesos organizacionales. Los equipos de proyecto adaptan estos procesos estándar para su proyecto específico, por ejemplo, definiendo cuántas rondas de pruebas harán o con qué frecuencia tendrán reuniones de seguimiento, pero siguiendo la estructura general definida por la organización.</p>
+
+            <h3>Demostración Visual (Estandarización):</h3>
+            <div class="visual-demo">
+[Conjunto de Procesos Estándar Org]
+        /          |          \
+       /           |           \
+      v            v            v
+[Proyecto A] -> Adapta Org Proc
+[Proyecto B] -> Adapta Org Proc
+[Proyecto C] -> Adapta Org Proc
+
+- Consistencia a través de la organización -
+            </div>
+
+             <div class="exercise">
+                <h3>Ejercicio 6.1: Característica Distintiva del Nivel 3</h3>
+                <p>¿Cuál es la principal diferencia entre una organización Nivel 2 y una organización Nivel 3 de CMMI?</p>
+                <label><input type="radio" name="ejercicio6-1" value="a"> La Nivel 3 usa héroes para solucionar problemas.</label><br>
+                <label><input type="radio" name="ejercicio6-1" value="b"> La Nivel 3 tiene procesos estándar definidos y aplicados a nivel organizacional.</label><br>
+                <label><input type="radio" name="ejercicio6-1" value="c"> La Nivel 3 solo se enfoca en la gestión financiera.</label><br>
+                <label><input type="radio" name="ejercicio6-1" value="d"> La Nivel 3 no planifica sus proyectos.</label><br>
+                <button onclick="checkExercise('ejercicio6-1')">Verificar Respuesta</button>
+                <div id="ejercicio6-1-feedback" class="feedback"></div>
+            </div>
+        </div>
+
+        <div id="step-6" class="step">
+            <h2>Paso 7: Nivel 4 - Gestionado Cuantitativamente</h2>
+            <p>Este nivel introduce la medición y el análisis cuantitativo para gestionar los procesos.</p>
+
+            <h3>Características del Nivel 4:</h3>
+            <ul>
+                <li><strong>Gestión Cuantitativa:</strong> Los procesos son medidos, analizados y controlados utilizando técnicas estadísticas y cuantitativas.</li>
+                <li><strong>Resultados Predecibles Cuantitativamente:</strong> La organización comprende el desempeño de sus procesos en términos numéricos (ej: tasa de defectos, tiempo de ciclo) y puede predecir los resultados dentro de límites definidos.</li>
+                <li><strong>Establecer Objetivos Cuantitativos:</strong> Se definen objetivos claros y medibles para la calidad y el desempeño del proceso.</li>
+                <li><strong>Uso de Datos para la Toma de Decisiones:</strong> Las decisiones se basan en datos concretos y análisis estadísticos.</li>
+            </ul>
+
+            <h3>Objetivo Clave:</h3>
+            <p>Establecer objetivos cuantitativos para la calidad y el desempeño del proceso y utilizarlos como criterios para gestionar proyectos y mejorar procesos.</p>
+
+            <h3>Prácticas Clave (Áreas de Proceso):</h3>
+             <ul>
+                <li><strong>Rendimiento del Proceso Organizacional (OPP):</strong> Establecer y mantener medidas de desempeño de procesos organizacionales y modelos cuantitativos.</li>
+                <li><strong>Gestión Cuantitativa de Proyectos (QPM):</strong> Gestionar cuantitativamente el proyecto para lograr los objetivos de calidad y rendimiento definidos por la organización.</li>
+            </ul>
+            <p>En esencia, el Nivel 4 toma los procesos definidos en el Nivel 3 y les añade una capa de medición y control estadístico.</p>
+
+            <h3>Ejemplo Práctico:</h3>
+            <p>Además de tener procesos definidos, la organización recopila datos sobre el número de defectos encontrados por línea de código, el tiempo que toma resolver un bug, la variabilidad en las estimaciones de esfuerzo, etc. Utilizan estos datos para crear modelos estadísticos que les permiten predecir la calidad final de un módulo o la probabilidad de terminar a tiempo. Pueden establecer un objetivo como "reducir la tasa de defectos a menos de X por cada 1000 líneas de código" y usar los datos para ver si lo están logrando y controlar el proceso para mantenerse dentro de los límites aceptables.</p>
+
+            <h3>Demostración Visual (Medición y Control):</h3>
+            <div class="visual-demo">
+[Procesos Definidos Nivel 3]
+        +
+[Recopilación de Datos de Proceso]
+        +
+[Análisis Estadístico / Modelos Cuantitativos]
+        |
+        v
+[Toma de Decisiones basada en Datos]
+[Controlar Procesos para cumplir Objetivos Cuantitativos]
+
+- Entendimiento numérico del desempeño -
+            </div>
+
+             <div class="exercise">
+                <h3>Ejercicio 7.1: Enfoque del Nivel 4</h3>
+                <p>El Nivel 4 de CMMI se distingue por:</p>
+                <label><input type="radio" name="ejercicio7-1" value="a"> Depender completamente de la habilidad de los individuos.</label><br>
+                <label><input type="radio" name="ejercicio7-1" value="b"> Enfocarse en la definición y estandarización de procesos a nivel organizacional.</label><br>
+                <label><input type="radio" name="ejercicio7-1" value="c"> Utilizar la medición y técnicas cuantitativas para gestionar y controlar los procesos.</label><br>
+                <label><input type="radio" name="ejercicio7-1" value="d"> No tener ningún proceso definido.</label><br>
+                <button onclick="checkExercise('ejercicio7-1')">Verificar Respuesta</button>
+                <div id="ejercicio7-1-feedback" class="feedback"></div>
+            </div>
+        </div>
+
+        <div id="step-7" class="step">
+            <h2>Paso 8: Nivel 5 - Optimizado</h2>
+            <p>Este es el nivel más alto. La organización se enfoca en la mejora continua e innovadora de sus procesos.</p>
+
+            <h3>Características del Nivel 5:</h3>
+            <ul>
+                <li><strong>Mejora Continua:</strong> La organización está constantemente buscando y implementando mejoras, tanto incrementales como innovadoras, en sus procesos.</li>
+                <li><strong>Análisis de Causa Raíz (Root Cause Analysis):</strong> Se analizan los datos de desempeño para identificar las causas raíz de los defectos y otros problemas, y se implementan acciones para prevenirlos.</li>
+                <li><strong>Innovación:</strong> Se identifican y despliegan mejoras de proceso y tecnológicas significativas.</li>
+                <li><strong>Enfoque en la Prevención:</strong> Los esfuerzos se centran en prevenir la ocurrencia de defectos y problemas.</li>
+            </ul>
+
+            <h3>Objetivo Clave:</h3>
+            <p>Mejorar continuamente el desempeño del proceso organizacional y establecer mejoras incrementales e innovadoras.</p>
+
+            <h3>Prácticas Clave (Áreas de Proceso):</h3>
+             <ul>
+                <li><strong>Innovación y Despliegue Organizacional (OID):</strong> Seleccionar y desplegar mejoras de proceso incrementales e innovadoras que mejoren el desempeño cualitativo y de calidad de la organización.</li>
+                <li><strong>Análisis Causal y Resolución (CAR):</strong> Identificar las causas de los defectos y otros problemas y tomar acciones para prevenir que ocurran en el futuro.</li>
+            </ul>
+             <p>El Nivel 5 se basa en la comprensión cuantitativa del Nivel 4 para identificar oportunidades de mejora y medir el impacto de los cambios.</p>
+
+            <h3>Ejemplo Práctico:</h3>
+            <p>Después de completar un proyecto, el equipo revisa los datos recopilados (Nivel 4) para identificar los tipos de defectos más comunes. Realizan un análisis de causa raíz para entender por qué ocurren esos defectos (ej: falta de formación en una tecnología, proceso de revisión de código ineficiente). Luego, proponen cambios al proceso estándar organizacional (Nivel 3) o implementan nuevas herramientas/técnicas (OID) para abordar la causa raíz. Miden el impacto de estos cambios en proyectos futuros para verificar si la tasa de defectos disminuye y el desempeño general mejora. La mejora del proceso se convierte en una parte integrada de la cultura organizacional.</p>
+
+             <h3>Demostración Visual (Ciclo de Optimización):</h3>
+            <div class="visual-demo">
+[Datos de Proceso Nivel 4]
+        |
+        v
+[Identificar Problemas/Oportunidades]
+        |
+        v
+[Análisis Causa Raíz (CAR)]
+        |
+        v
+[Implementar Mejoras (OID)] -> Cambios en Procesos/Herramientas
+        |
+        v
+[Medir Impacto]
+        |
+        v (Bucle de Mejora Continua)
+[Procesos Nivel 4 con Mejor Desempeño]
+            </div>
+
+            <div class="exercise">
+                <h3>Ejercicio 8.1: Foco del Nivel 5</h3>
+                <p>La característica más importante del Nivel 5 de CMMI es su enfoque en:</p>
+                 <label><input type="radio" name="ejercicio8-1" value="a"> La gestión básica de proyectos individuales.</label><br>
+                <label><input type="radio" name="ejercicio8-1" value="b"> La estandarización de procesos a nivel organizacional.</label><br>
+                <label><input type="radio" name="ejercicio8-1" value="c"> La gestión cuantitativa de procesos.</label><br>
+                <label><input type="radio" name="ejercicio8-1" value="d"> La mejora continua de procesos basada en análisis y datos.</label><br>
+                <button onclick="checkExercise('ejercicio8-1')">Verificar Respuesta</button>
+                <div id="ejercicio8-1-feedback" class="feedback"></div>
+            </div>
+        </div>
+
+        <div id="step-8" class="step">
+            <h2>Paso 9: Resumen de Niveles y Conclusión</h2>
+            <p>Hemos recorrido los 5 niveles de madurez de CMMI. Aquí tienes un resumen rápido:</p>
+
+            <ul>
+                <li><strong>Nivel 1 (Inicial):</strong> Caótico, impredecible. Sin procesos definidos.</li>
+                <li><strong>Nivel 2 (Gestionado):</strong> Proyectos individuales planeados y controlados. Procesos básicos de gestión por proyecto.</li>
+                <li><strong>Nivel 3 (Definido):</strong> Procesos estandarizados a nivel organizacional, adaptables por proyecto. Mayor consistencia.</li>
+                <li><strong>Nivel 4 (Gestionado Cuantitativamente):</strong> Procesos medidos y controlados cuantitativamente. Datos usados para predecir resultados.</li>
+                <li><strong>Nivel 5 (Optimizado):</strong> Mejora continua basada en el análisis de causa raíz y la innovación, utilizando datos de desempeño.</li>
+            </ul>
+
+             <h3>Demostración Visual (Resumen de la Escalera):</h3>
+            <div class="visual-demo" style="text-align: center;">
+Nivel 5: Optimizado           (Mejora Continua)
+         ^
+Nivel 4: Gestionado Cuantitativo (Medición y Control)
+         ^
+Nivel 3: Definido             (Estandarización Org)
+         ^
+Nivel 2: Gestionado           (Gestión por Proyecto)
+         ^
+Nivel 1: Inicial              (Caos)
+            </div>
+
+            <h3>Conclusión:</h3>
+            <p>CMMI es un marco poderoso para ayudar a las organizaciones a mejorar su capacidad para desarrollar y mantener productos y servicios de calidad. Alcanzar niveles más altos de madurez generalmente resulta en mayor eficiencia, predictibilidad, y satisfacción del cliente.</p>
+            <p>La implementación de CMMI es un viaje que requiere compromiso y esfuerzo a largo plazo, pero los beneficios potenciales hacen que valga la pena para muchas organizaciones.</p>
+
+            <h3>¿Qué Sigue?</h3>
+            <p>Esta guía cubrió los conceptos básicos y los niveles de madurez. CMMI también detalla Áreas de Proceso específicas dentro de cada nivel, que describen las actividades y prácticas que una organización debe realizar. Explorar estas áreas de proceso sería el siguiente paso para profundizar en CMMI.</p>
+            <p>¡Felicidades por completar esta guía básica!</p>
+
+            <div class="exercise">
+                <h3>Ejercicio 9.1: Nivel de Madurez Global</h3>
+                <p>Imagina una organización que tiene procesos documentados para el desarrollo de software que son usados por todos los equipos (aunque pueden adaptarlos ligeramente). También realizan gestión de riesgos y tienen un proceso formal de formación para nuevos empleados en estos procesos. Sin embargo, aún no recopilan datos detallados sobre el desempeño de sus procesos para realizar análisis estadísticos.</p>
+                <p>Basado en las características, ¿en qué nivel de madurez CMMI crees que se encuentra esta organización?</p>
+                 <select id="ejercicio9-1-select">
+                    <option value="">Seleccionar Nivel</option>
+                    <option value="1">Nivel 1</option>
+                    <option value="2">Nivel 2</option>
+                    <option value="3">Nivel 3</option>
+                    <option value="4">Nivel 4</option>
+                    <option value="5">Nivel 5</option>
+                </select>
+                <button onclick="checkExercise('ejercicio9-1')">Verificar Respuesta</button>
+                <div id="ejercicio9-1-feedback" class="feedback"></div>
+            </div>
+        </div>
+
+        <!-- Add steps here following the pattern: id="step-N" class="step" -->
+
+
+        <div class="navigation">
+            <button id="prevBtn" disabled>Anterior</button>
+            <button id="nextBtn">Siguiente</button>
+        </div>
+
+    </div>
+
+    <footer>
+        Guía Interactiva Básica sobre CMMI - Desarrollada para fines educativos.
+    </footer>
+
+    <script>
+        const steps = document.querySelectorAll('.step');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        let currentStepIndex = 0;
+
+        function showStep(index) {
+            steps.forEach((step, i) => {
+                step.style.display = (i === index) ? 'block' : 'none';
+            });
+            currentStepIndex = index;
+            updateNavigationButtons();
+        }
+
+        function updateNavigationButtons() {
+            prevBtn.disabled = currentStepIndex === 0;
+            nextBtn.disabled = currentStepIndex === steps.length - 1;
+        }
+
+        prevBtn.addEventListener('click', () => {
+            if (currentStepIndex > 0) {
+                showStep(currentStepIndex - 1);
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentStepIndex < steps.length - 1) {
+                showStep(currentStepIndex + 1);
+            }
+        });
+
+        // Exercise checking logic
+        function checkExercise(exerciseId) {
+            const feedbackElement = document.getElementById(`${exerciseId}-feedback`);
+            let isCorrect = false;
+            let feedbackText = '';
+
+            switch (exerciseId) {
+                case 'ejercicio1-1':
+                    const answer1_1 = document.getElementById('ejercicio1-1-input').value.trim().toLowerCase();
+                    if (answer1_1.includes('mejorar') && answer1_1.includes('proceso') && answer1_1.includes('desempeño')) { // Check for key terms
+                        isCorrect = true;
+                        feedbackText = '¡Correcto! CMMI busca principalmente mejorar los procesos para aumentar el desempeño organizacional.';
+                    } else {
+                         isCorrect = false;
+                        feedbackText = 'No es del todo correcto. Revisa la explicación sobre el propósito principal. Enfócate en la mejora de procesos y desempeño.';
+                    }
+                    break;
+                case 'ejercicio2-1':
+                    const checkboxes2_1 = document.querySelectorAll('input[name="beneficio-cmmi"]:checked');
+                    const selectedValues = Array.from(checkboxes2_1).map(cb => cb.value);
+                    // Correct answers are 'a' (Reducción de costos) and 'c' (Mayor predictibilidad)
+                    if (selectedValues.length === 2 && selectedValues.includes('a') && selectedValues.includes('c')) {
+                        isCorrect = true;
+                        feedbackText = '¡Correcto! Reducir costos y aumentar la predictibilidad son beneficios clave.';
+                    } else if (selectedValues.length === 2 && (selectedValues.includes('b') || selectedValues.includes('d'))) {
+                         isCorrect = false;
+                         feedbackText = 'Incorrecto. Revisa la lista de beneficios. El caos y la ignorancia del cliente no son beneficios.';
+                    } else {
+                        isCorrect = false;
+                        feedbackText = 'No es del todo correcto. Asegúrate de seleccionar dos de los beneficios clave mencionados.';
+                    }
+                    break;
+                case 'ejercicio3-1':
+                    const lowLevel = document.getElementById('ejercicio3-1-low-input').value.trim();
+                    const highLevel = document.getElementById('ejercicio3-1-high-input').value.trim();
+                     // Accept '1', 'Inicial', 'nivel 1', etc. and '5', 'Optimizado', 'nivel 5', etc.
+                    const isLowCorrect = lowLevel === '1' || lowLevel.toLowerCase() === 'inicial' || lowLevel.toLowerCase() === 'nivel 1';
+                    const isHighCorrect = highLevel === '5' || highLevel.toLowerCase() === 'optimizado' || highLevel.toLowerCase() === 'nivel 5';
+
+                    if (isLowCorrect && isHighCorrect) {
+                        isCorrect = true;
+                        feedbackText = '¡Correcto! El Nivel 1 es el más bajo y el Nivel 5 el más alto.';
+                    } else if (isLowCorrect || isHighCorrect) {
+                         isCorrect = false;
+                         feedbackText = 'Correcto en parte. Revisa cuál es el nivel más bajo y cuál es el más alto.';
+                    }
+                    else {
+                         isCorrect = false;
+                        feedbackText = 'Incorrecto. Revisa la escalera de madurez.';
+                    }
+                    break;
+                 case 'ejercicio4-1':
+                    const answer4_1 = document.getElementById('ejercicio4-1-select').value;
+                    if (answer4_1 === '1') {
+                        isCorrect = true;
+                        feedbackText = '¡Correcto! La descripción de caos y dependencia de héroes es típica del Nivel 1.';
+                    } else {
+                        isCorrect = false;
+                        feedbackText = 'Incorrecto. Esa descripción encaja con el nivel donde los procesos son impredecibles y dependen de individuos.';
+                    }
+                    break;
+                 case 'ejercicio5-1':
+                    const answer5_1 = document.querySelector('input[name="ejercicio5-1"]:checked');
+                    if (answer5_1 && answer5_1.value === 'c') {
+                        isCorrect = true;
+                        feedbackText = '¡Correcto! El Nivel 2 se enfoca en la gestión básica proyecto por proyecto.';
+                    } else {
+                        isCorrect = false;
+                        feedbackText = 'Incorrecto. Revisa las características del Nivel 2, especialmente cómo se aplica la gestión.';
+                    }
+                    break;
+                 case 'ejercicio6-1':
+                    const answer6_1 = document.querySelector('input[name="ejercicio6-1"]:checked');
+                    if (answer6_1 && answer6_1.value === 'b') {
+                        isCorrect = true;
+                        feedbackText = '¡Correcto! La estandarización a nivel organizacional es la marca distintiva del Nivel 3.';
+                    } else {
+                        isCorrect = false;
+                        feedbackText = 'Incorrecto. Piensa en qué agrega el Nivel 3 sobre el Nivel 2 en cuanto a la aplicación de procesos.';
+                    }
+                    break;
+                 case 'ejercicio7-1':
+                    const answer7_1 = document.querySelector('input[name="ejercicio7-1"]:checked');
+                    if (answer7_1 && answer7_1.value === 'c') {
+                        isCorrect = true;
+                        feedbackText = '¡Correcto! El Nivel 4 se basa en datos y técnicas cuantitativas para controlar procesos.';
+                    } else {
+                        isCorrect = false;
+                        feedbackText = 'Incorrecto. Revisa qué tipo de enfoque se introduce en el Nivel 4 que no existía en los anteriores.';
+                    }
+                    break;
+                 case 'ejercicio8-1':
+                    const answer8_1 = document.querySelector('input[name="ejercicio8-1"]:checked');
+                    if (answer8_1 && answer8_1.value === 'd') {
+                        isCorrect = true;
+                        feedbackText = '¡Correcto! El Nivel 5 está dedicado a la mejora continua y la optimización.';
+                    } else {
+                        isCorrect = false;
+                        feedbackText = 'Incorrecto. Considera el objetivo final de la escalera de madurez CMMI.';
+                    }
+                    break;
+                 case 'ejercicio9-1':
+                     const answer9_1 = document.getElementById('ejercicio9-1-select').value;
+                    if (answer9_1 === '3') {
+                        isCorrect = true;
+                        feedbackText = '¡Correcto! La descripción encaja perfectamente con el Nivel 3: procesos estandarizados organizacionalmente, gestión de riesgos, formación, pero sin gestión cuantitativa formal (Nivel 4).';
+                    } else if (answer9_1 === '2') {
+                        isCorrect = false;
+                        feedbackText = 'Casi. Es más que Nivel 2 porque los procesos son *estandarizados a nivel organizacional*, no solo por proyecto. Revisa la diferencia entre Nivel 2 y 3.';
+                    } else if (answer9_1 === '4' || answer9_1 === '5') {
+                        isCorrect = false;
+                        feedbackText = 'No. La descripción indica específicamente que *no* recopilan datos detallados para análisis estadísticos, lo cual es clave en los Niveles 4 y 5.';
+                    }
+                    else {
+                         isCorrect = false;
+                        feedbackText = 'Incorrecto. Revisa las características de cada nivel y compara con la descripción de la organización.';
+                    }
+                    break;
+            }
+
+            feedbackElement.textContent = feedbackText;
+            feedbackElement.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+        }
+
+        // Initialize the guide
+        document.addEventListener('DOMContentLoaded', () => {
+            showStep(currentStepIndex);
+        });
+
+    </script>
+
+</body>
+</html>
