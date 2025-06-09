@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clasificación de Calidad de Software</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            background-color: #f4f7f6;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Encabezado */
+        header {
+            background-color: #fff;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            border-bottom: 5px solid #51872e; /* Color SENA verde */
+        }
+
+        header img {
+            height: 50px; /* Ajusta la altura de la imagen */
+            margin-right: 15px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8em;
+            color: #333;
+        }
+
+        /* Contenedor principal del juego */
+        .game-container {
+            flex-grow: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px; /* Espacio entre secciones */
+        }
+
+        /* Sección de elementos a clasificar */
+        .source-items-container {
+            background-color: #e9ecef;
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 800px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .source-items {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        /* Elementos arrastrables */
+        .draggable-item {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: grab;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            font-size: 1em;
+            text-align: center;
+        }
+
+        .draggable-item:hover {
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .draggable-item.dragging {
+            opacity: 0.6;
+            transform: scale(1.05);
+            cursor: grabbing;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Sección de contenedores de destino */
+        .target-containers {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            width: 90%;
+            max-width: 1000px;
+        }
+
+        /* Contenedores de destino */
+        .drop-target {
+            flex: 1; /* Distribuye el espacio equitativamente */
+            min-width: 250px; /* Ancho mínimo para evitar colapso */
+            background-color: #fff;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            min-height: 200px; /* Altura mínima para visualización */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px; /* Espacio entre elementos dropeados */
+            transition: border-color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+        }
+
+        .drop-target h2 {
+            margin-top: 0;
+            color: #51872e; /* Color SENA verde */
+            font-size: 1.3em;
+            border-bottom: 2px solid #51872e;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .drop-target.dragover {
+            border-color: #51872e; /* Resalta al arrastrar encima */
+            background-color: #d4edda; /* Fondo suave al arrastrar encima */
+        }
+
+        .drop-target .draggable-item {
+            cursor: default; /* Cambia cursor una vez dropeado */
+            border-color: #51872e; /* Borde verde para elementos correctos */
+            background-color: #eaf4e9; /* Fondo claro para elementos correctos */
+            box-shadow: none; /* Sin sombra una vez dropeado */
+        }
+
+        /* Mensajes de feedback */
+        #feedback-message {
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+            min-height: 1.5em; /* Reserva espacio para el mensaje */
+        }
+
+        /* Botón de Reiniciar */
+        #reset-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #dc3545; /* Rojo para reiniciar */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        #reset-button:hover {
+            background-color: #c82333;
+        }
+
+         /* Estilo para el mensaje de completado */
+        #feedback-message.completed {
+            color: #28a745; /* Verde para completado */
+            font-size: 1.5em;
+        }
+
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            header img {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+
+            .game-container {
+                padding: 10px;
+            }
+
+            .source-items-container, .target-containers {
+                width: 95%;
+                padding: 15px;
+            }
+
+            .target-containers {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .drop-target {
+                 min-width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="https://i.postimg.cc/mZzx20gW/Logosimbolo-SENA-PRINCIPAL.png" alt="Logo SENA">
+        <h1>Centro de Servicios y Gestión Empresarial</h1>
+    </header>
+
+    <main class="game-container">
+        <h2>Clasifica los elementos de Calidad de Software</h2>
+
+        <div class="source-items-container">
+             <p>Arrastra cada elemento a su categoría correcta.</p>
+            <div class="source-items" id="source-items">
+                <!-- Items to drag -->
+                <div class="draggable-item" draggable="true" id="item-unit-test" data-category="testing">Prueba Unitaria</div>
+                <div class="draggable-item" draggable="true" id="item-code-review" data-category="principles">Revisión de Código</div>
+                <div class="draggable-item" draggable="true" id="item-user-manual" data-category="documentation">Manual de Usuario</div>
+                <div class="draggable-item" draggable="true" id="item-integration-test" data-category="testing">Prueba de Integración</div>
+                <div class="draggable-item" draggable="true" id="item-clean-code" data-category="principles">Código Limpio</div>
+                <div class="draggable-item" draggable="true" id="item-api-doc" data-category="documentation">Documentación API</div>
+                <div class="draggable-item" draggable="true" id="item-acceptance-test" data-category="testing">Prueba de Aceptación</div>
+                 <div class="draggable-item" draggable="true" id="item-solid" data-category="principles">Principios SOLID</div>
+                <div class="draggable-item" draggable="true" id="item-tech-spec" data-category="documentation">Especificación Técnica</div>
+            </div>
+        </div>
+
+        <div class="target-containers">
+            <!-- Drop targets -->
+            <div class="drop-target" id="target-testing" data-category-id="testing">
+                <h2>Pruebas</h2>
+            </div>
+            <div class="drop-target" id="target-principles" data-category-id="principles">
+                 <h2>Principios de Desarrollo</h2>
+            </div>
+             <div class="drop-target" id="target-documentation" data-category-id="documentation">
+                <h2>Documentación</h2>
+            </div>
+        </div>
+
+        <div id="feedback-message"></div>
+
+        <button id="reset-button">Reiniciar Juego</button>
+
+    </main>
+
+    <script>
+        const draggableItems = document.querySelectorAll('.draggable-item');
+        const dropTargets = document.querySelectorAll('.drop-target');
+        const sourceItemsContainer = document.getElementById('source-items');
+        const feedbackMessage = document.getElementById('feedback-message');
+        const resetButton = document.getElementById('reset-button');
+
+        let correctItemsPlaced = 0;
+        const totalItems = draggableItems.length;
+
+        // Add event listeners for drag events on draggable items
+        draggableItems.forEach(item => {
+            item.addEventListener('dragstart', dragStart);
+            item.addEventListener('dragend', dragEnd);
+        });
+
+        // Add event listeners for drag events on drop targets
+        dropTargets.forEach(target => {
+            target.addEventListener('dragover', dragOver);
+            target.addEventListener('dragleave', dragLeave);
+            target.addEventListener('drop', drop);
+        });
+
+        // Add event listener for the reset button
+        resetButton.addEventListener('click', resetGame);
+
+        function dragStart(event) {
+            // Set the data to be transferred (the id of the dragged element)
+            event.dataTransfer.setData('text/plain', event.target.id);
+            // Add a class for visual feedback while dragging
+            event.target.classList.add('dragging');
+        }
+
+        function dragEnd(event) {
+            // Remove the dragging class
+            event.target.classList.remove('dragging');
+        }
+
+        function dragOver(event) {
+            // Prevent default to allow dropping
+            event.preventDefault();
+            // Add a class for visual feedback on valid drop targets
+             const target = event.target.closest('.drop-target');
+             if (target) {
+                target.classList.add('dragover');
+             }
+        }
+
+        function dragLeave(event) {
+             // Remove the visual feedback class
+             const target = event.target.closest('.drop-target');
+             if (target) {
+                target.classList.remove('dragover');
+             }
+        }
+
+        function drop(event) {
+            // Prevent default action
+            event.preventDefault();
+
+            // Get the dragged item's ID
+            const draggedItemId = event.dataTransfer.getData('text/plain');
+            const draggedElement = document.getElementById(draggedItemId);
+
+            // Find the actual drop target element (could be a child of .drop-target)
+            const dropTarget = event.target.closest('.drop-target');
+
+            // Remove dragover feedback from the target
+            if (dropTarget) {
+                 dropTarget.classList.remove('dragover');
+            }
+
+
+            // Check if the drop occurred on a valid target
+            if (dropTarget) {
+                const correctCategory = draggedElement.getAttribute('data-category');
+                const targetCategory = dropTarget.getAttribute('data-category-id');
+
+                if (correctCategory === targetCategory) {
+                    // Correct drop: Move the element
+                    dropTarget.appendChild(draggedElement);
+                     draggedElement.draggable = false; // Make item non-draggable after correct placement
+                    showFeedback('¡Correcto!', 'green');
+
+                    // Increment count and check for game completion
+                    correctItemsPlaced++;
+                    if (correctItemsPlaced === totalItems) {
+                        endGame();
+                    }
+
+                } else {
+                    // Incorrect drop: Provide feedback but don't move the element
+                    showFeedback('Inténtalo de nuevo. Esa no es la categoría correcta.', 'red');
+                    // Optionally add temporary visual feedback to the item/target
+                }
+            } else {
+                 // Dropped outside any valid target: Provide feedback
+                 showFeedback('Suelta el elemento en una de las categorías.', 'orange');
+            }
+        }
+
+        function showFeedback(message, color) {
+            feedbackMessage.textContent = message;
+            feedbackMessage.style.color = color;
+            // Optional: Clear message after a few seconds
+            // setTimeout(() => { feedbackMessage.textContent = ''; }, 3000);
+        }
+
+        function endGame() {
+            showFeedback('¡Felicitaciones! Has clasificado todos los elementos correctamente.', '#28a745'); // Use green color
+            feedbackMessage.classList.add('completed');
+
+            // Optionally disable all remaining drag/drop functionality
+            draggableItems.forEach(item => item.draggable = false);
+             dropTargets.forEach(target => {
+                 target.removeEventListener('dragover', dragOver);
+                 target.removeEventListener('dragleave', dragLeave);
+                 target.removeEventListener('drop', drop);
+             });
+             resetButton.style.display = 'block'; // Make sure reset button is visible
+        }
+
+        function resetGame() {
+            // Move all items back to the source container
+            draggableItems.forEach(item => {
+                sourceItemsContainer.appendChild(item);
+                item.draggable = true; // Make them draggable again
+                 item.classList.remove('dragging'); // Clean up classes
+                 item.style.borderColor = ''; // Remove correct drop styling
+                 item.style.backgroundColor = '';
+            });
+
+            // Clear feedback message
+            feedbackMessage.textContent = '';
+            feedbackMessage.style.color = '';
+            feedbackMessage.classList.remove('completed');
+
+
+            // Reset count
+            correctItemsPlaced = 0;
+
+             // Ensure drop targets are ready again (re-add listeners if they were removed)
+             dropTargets.forEach(target => {
+                 target.classList.remove('dragover'); // Clean up classes
+                 target.removeEventListener('dragover', dragOver); // Avoid duplicates
+                 target.removeEventListener('dragleave', dragLeave);
+                 target.removeEventListener('drop', drop);
+
+                 target.addEventListener('dragover', dragOver);
+                 target.addEventListener('dragleave', dragLeave);
+                 target.addEventListener('drop', drop);
+             });
+
+            showFeedback('Juego reiniciado. ¡Clasifica de nuevo!', 'blue');
+        }
+
+        // Initial state setup (optional, ensures correct count if items are dynamically loaded)
+        document.addEventListener('DOMContentLoaded', () => {
+             // If items start in source, count is already 0. If they start in targets, need to adjust.
+             // In this case, all items start in source, so count is correct.
+        });
+
+    </script>
+
+</body>
+</html>
